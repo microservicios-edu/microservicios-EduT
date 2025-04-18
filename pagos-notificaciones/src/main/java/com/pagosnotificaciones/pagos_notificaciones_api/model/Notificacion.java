@@ -1,24 +1,27 @@
 package com.pagosnotificaciones.pagos_notificaciones_api.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "notificaciones")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Notificacion {
-    private String id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String mensaje;
-    private String destinatario;
 
-    public Notificacion() {}
+    private String tipo;
 
-    public Notificacion(String id, String mensaje, String destinatario) {
-        this.id = id;
-        this.mensaje = mensaje;
-        this.destinatario = destinatario;
-    }
-
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public String getMensaje() { return mensaje; }
-    public void setMensaje(String mensaje) { this.mensaje = mensaje; }
-
-    public String getDestinatario() { return destinatario; }
-    public void setDestinatario(String destinatario) { this.destinatario = destinatario; }
+    @ManyToOne
+    @JoinColumn(name = "pago_id", nullable = false)
+    private Pago pago;
 }
+
