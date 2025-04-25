@@ -18,21 +18,19 @@ public class PagoService {
         this.pagoRepository = pagoRepository;
     }
 
-    // Obtener todos los pagos
     public List<Pago> listarPagos() {
+        System.out.println("Listado de pagos: " + pagoRepository.findAll());  // Agregar impresión para verificar
         return pagoRepository.findAll();
     }
 
-    // Crear un nuevo pago
     public Pago agregarPago(Pago pago) {
         return pagoRepository.save(pago);
     }
 
-    // Actualizar un pago existente
     public Pago actualizarPago(Long id, Pago nuevoPago) {
-        Optional<Pago> existingPago = pagoRepository.findById(id);
-        if (existingPago.isPresent()) {
-            Pago pago = existingPago.get();
+        Optional<Pago> pagoExistente = pagoRepository.findById(id);
+        if (pagoExistente.isPresent()) {
+            Pago pago = pagoExistente.get();
             pago.setUsuario(nuevoPago.getUsuario());
             pago.setMonto(nuevoPago.getMonto());
             return pagoRepository.save(pago);
@@ -40,12 +38,7 @@ public class PagoService {
         return null;
     }
 
-    // Eliminar un pago
     public boolean eliminarPago(Long id) {
-        if (pagoRepository.existsById(id)) {
-            pagoRepository.deleteById(id);
-            return true;
-        }
-        return false;
+        return pagoRepository.deleteById(id);
     }
 }

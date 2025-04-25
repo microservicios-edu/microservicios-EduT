@@ -18,35 +18,27 @@ public class NotificacionService {
         this.notificacionRepository = notificacionRepository;
     }
 
-    // Obtener todas las notificaciones
     public List<Notificacion> listarNotificaciones() {
         return notificacionRepository.findAll();
     }
 
-    // Crear una nueva notificación
     public Notificacion agregarNotificacion(Notificacion notificacion) {
         return notificacionRepository.save(notificacion);
     }
 
-    // Actualizar una notificación existente
     public Notificacion actualizarNotificacion(Long id, Notificacion nuevaNotificacion) {
-        Optional<Notificacion> existingNotificacion = notificacionRepository.findById(id);
-        if (existingNotificacion.isPresent()) {
-            Notificacion notificacion = existingNotificacion.get();
-            notificacion.setMensaje(nuevaNotificacion.getMensaje());
-            notificacion.setTipo(nuevaNotificacion.getTipo());
-            notificacion.setPago(nuevaNotificacion.getPago());  // Si es necesario actualizar el pago asociado
-            return notificacionRepository.save(notificacion);
+        Optional<Notificacion> existente = notificacionRepository.findById(id);
+        if (existente.isPresent()) {
+            Notificacion n = existente.get();
+            n.setMensaje(nuevaNotificacion.getMensaje());
+            n.setTipo(nuevaNotificacion.getTipo());
+            n.setPagoId(nuevaNotificacion.getPagoId());
+            return notificacionRepository.save(n);
         }
         return null;
     }
 
-    // Eliminar una notificación
     public boolean eliminarNotificacion(Long id) {
-        if (notificacionRepository.existsById(id)) {
-            notificacionRepository.deleteById(id);
-            return true;
-        }
-        return false;
+        return notificacionRepository.deleteById(id);
     }
 }
