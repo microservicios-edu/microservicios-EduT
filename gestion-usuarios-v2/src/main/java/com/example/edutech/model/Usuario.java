@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 // Esta es la estructura a ocupar para utilizar Lombok en las clases de modelo.
-// Lombok nos permite reducir código repetitivo, como getters, setters, constructores y otros métodos, 
-// simplemente usando las anotaciones correspondientes.
-// Asegúrate de tener Lombok correctamente configurado en el archivo pom.xml o build.gradle de tu proyecto.
+// Lombok nos permite reducir código repetitivo, como getters, setters, constructores y otros métodos
 
 @Data // Genera automáticamente los métodos getter, setter, toString(), hashCode(), equals() y otros.
 @AllArgsConstructor // Genera un constructor con todos los campos.
