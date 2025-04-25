@@ -19,7 +19,6 @@ public class PagoService {
     }
 
     public List<Pago> listarPagos() {
-        System.out.println("Listado de pagos: " + pagoRepository.findAll());  // Agregar impresión para verificar
         return pagoRepository.findAll();
     }
 
@@ -40,5 +39,10 @@ public class PagoService {
 
     public boolean eliminarPago(Long id) {
         return pagoRepository.deleteById(id);
+    }
+
+    // Método para verificar si un pago con el ID existe
+    public boolean existePago(Long pagoId) {
+        return pagoRepository.existsById(pagoId);
     }
 }

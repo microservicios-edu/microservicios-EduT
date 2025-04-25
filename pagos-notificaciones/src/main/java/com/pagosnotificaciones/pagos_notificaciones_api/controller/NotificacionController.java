@@ -3,7 +3,6 @@ package com.pagosnotificaciones.pagos_notificaciones_api.controller;
 import com.pagosnotificaciones.pagos_notificaciones_api.model.Notificacion;
 import com.pagosnotificaciones.pagos_notificaciones_api.service.NotificacionService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

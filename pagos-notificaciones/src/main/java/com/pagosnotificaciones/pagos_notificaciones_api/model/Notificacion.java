@@ -11,5 +11,5 @@ public class Notificacion {
     private Long id;
     private String mensaje;
     private String tipo;
-    private Long pagoId; // Referencia al ID de Pago, no objeto Pago
+    private Long pagoId; // Referencia al ID de Pago
 }

@@ -34,8 +34,4 @@ public class NotificacionRepository {
     public boolean deleteById(Long id) {
         return notificaciones.removeIf(n -> n.getId().equals(id));
     }
-
-    public boolean existsById(Long id) {
-        return notificaciones.stream().anyMatch(n -> n.getId().equals(id));
-    }
 }

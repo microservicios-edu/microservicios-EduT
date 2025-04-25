@@ -14,7 +14,6 @@ public class PagoRepository {
     private Long currentId = 1L;
 
     public List<Pago> findAll() {
-        System.out.println("Datos en la lista de pagos: " + pagos);  // Verificar si hay datos
         return pagos;
     }
 
@@ -26,7 +25,6 @@ public class PagoRepository {
         if (pago.getId() == null) {
             pago.setId(currentId++);
             pagos.add(pago);
-            System.out.println("Pago guardado: " + pago);  // Verificar que se guarda el pago
         } else {
             pagos.replaceAll(p -> p.getId().equals(pago.getId()) ? pago : p);
         }

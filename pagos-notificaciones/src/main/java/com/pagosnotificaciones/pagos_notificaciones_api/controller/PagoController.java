@@ -20,9 +20,7 @@ public class PagoController {
 
     @GetMapping
     public List<Pago> listarPagos() {
-        List<Pago> pagos = pagoService.listarPagos();
-        System.out.println("Datos recibidos en el controlador: " + pagos);  // Agregar impresión para verificar
-        return pagos;
+        return pagoService.listarPagos();
     }
 
     @PostMapping
@@ -40,6 +38,6 @@ public class PagoController {
         if (pagoService.eliminarPago(id)) {
             return "Pago eliminado con ID: " + id;
         }
-        return "Pago no encontrado con ID: " + id;
+        return "No se encontró pago con ID: " + id;
     }
 }
