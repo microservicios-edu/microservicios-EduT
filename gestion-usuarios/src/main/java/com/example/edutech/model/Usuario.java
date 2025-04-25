@@ -4,18 +4,47 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// Esta es la estructura a ocupar para utilizar Lombok en las clases de modelo.
-// Lombok nos permite reducir código repetitivo, como getters, setters, constructores y otros métodos, 
-// simplemente usando las anotaciones correspondientes.
-// Asegúrate de tener Lombok correctamente configurado en el archivo pom.xml o build.gradle de tu proyecto.
-
-@Data // Genera automáticamente los métodos getter, setter, toString(), hashCode(), equals() y otros.
-@AllArgsConstructor // Genera un constructor con todos los campos.
-@NoArgsConstructor // Genera un constructor vacío.
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuario {
-    private int id;
-    private String nombre;
-    private int edad;
-}
+  private int id;
+  private String nombre;
+  private int edad;
 
+  // Constructor sin parámetros
+  public Usuario() {
+  }
+
+  // Constructor con parámetros
+  public Usuario(int id, String nombre, int edad) {
+    this.id = id;
+    this.nombre = nombre;
+    this.edad = edad;
+  }
+
+  // Getters y Setters
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getNombre() {
+    return nombre;
+  }
+
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public int getEdad() {
+    return edad;
+  }
+
+  public void setEdad(int edad) {
+    this.edad = edad;
+  }
+}
