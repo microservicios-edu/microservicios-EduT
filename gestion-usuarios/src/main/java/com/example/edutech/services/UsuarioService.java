@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -13,28 +14,29 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
-    // Método para obtener todos los usuarios
     public List<Usuario> getUsuarios() {
-        return usuarioRepositorio.obtenerUsuarios();
+        return usuarioRepositorio.findAll();
     }
 
-    // Método para guardar un usuario
     public Usuario saveUsuario(Usuario usuario) {
-        return usuarioRepositorio.guardar(usuario);
+        return usuarioRepositorio.save(usuario);
     }
 
-    // Método para obtener un usuario por su ID
     public Usuario getUsuarioId(int id) {
-        return usuarioRepositorio.buscarPorId(id);
+        Optional<Usuario> optional = usuarioRepositorio.findById(id);
+        return optional.orElse(null);
     }
 
-    // Método para actualizar un usuario
-    public Usuario updateUsuario(Usuario usuario) {
-        return usuarioRepositorio.actualizar(usuario);
+    public Usuario updateUsuario(Usuario usuario){
+        return usuarioRepositorio.save(usuario);
     }
 
-    // Método para eliminar un usuario
     public boolean deleteUsuario(int id) {
-        return usuarioRepositorio.eliminar(id);
+        if (usuarioRepositorio.existsById(id)) {
+            usuarioRepositorio.deleteById(id);
+            return true;
+        }
+        return false;
     }
+
 }

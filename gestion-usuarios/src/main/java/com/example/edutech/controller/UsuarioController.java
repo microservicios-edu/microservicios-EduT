@@ -4,6 +4,8 @@ import com.example.edutech.model.Usuario;
 import com.example.edutech.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+
 
 import java.util.List;
 
@@ -28,11 +30,10 @@ public class UsuarioController {
 
     // Método para actualizar un usuario existente
     @PutMapping("/{id}")
-    public Usuario actualizarUsuario(@PathVariable int id, @RequestBody Usuario usuarioActualizado) {
-        
-        usuarioActualizado.setId(id); 
-        return usuarioService.updateUsuario(usuarioActualizado);
+    public Usuario actualizarUsuario(@PathVariable int id, @RequestBody Usuario usuario){
+        return usuarioService.updateUsuario(usuario);
     }
+
 
     // Método para eliminar un usuario
     @DeleteMapping("/{id}")
