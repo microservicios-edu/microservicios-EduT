@@ -16,5 +16,6 @@ public class Matricula {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombre;
-    private int edad;
+    private String usuario;
+    private String password;
 }

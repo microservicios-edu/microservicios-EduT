@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/matricula")
+@RequestMapping("/matricula")
 public class MatriculaControlador {
     
     @Autowired
@@ -31,12 +31,13 @@ public class MatriculaControlador {
     // Método para actualizar una matrícula existente
     @PutMapping("/{id}")
     public Matricula actualizarMatricula(@PathVariable int id, @RequestBody Matricula matricula){
-        return matriculaServicio.updateMatricula(usuario);
+        return matriculaServicio.updateMatricula(matricula);
     }
 
     //Método para eliminar una matrícula
     @DeleteMapping("/{id}")
-    Public String eliminarMatricula(@PathVariable int id){
+    public String eliminarMatricula(@PathVariable int id){
+
         if(matriculaServicio.deleteMatricula(id)){
             return "Matrícula eliminada";
         } else {

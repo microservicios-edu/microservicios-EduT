@@ -1,4 +1,4 @@
-package com.matriculainscripcion;
+package com.matriculainscripcion.matricula_inscripcion_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
