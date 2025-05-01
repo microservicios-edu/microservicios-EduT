@@ -16,7 +16,7 @@ public class MatriculaControlador {
     @Autowired
     private MatriculaServicio matriculaServicio;
 
-    //Método para listar todas las matrículas
+    //Método para listar todas las matrículas.
     @GetMapping
     public List<Matricula> listarMatriculas(){
         return matriculaServicio.getMatriculas();
