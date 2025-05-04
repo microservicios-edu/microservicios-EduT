@@ -43,7 +43,7 @@ public class NotificacionService {
         return notificacionRepository.findById(id).map(n -> {
             n.setMensaje(actualizada.getMensaje());
             n.setPagoId(actualizada.getPagoId());
-            n.setFechaEnvio(LocalDate.now());
+            n.setFechaEnvio(actualizada.getFechaEnvio());
             return notificacionRepository.save(n);
         }).orElseThrow(() -> new RuntimeException("No se encontró la notificación con ID: " + id));
     }
