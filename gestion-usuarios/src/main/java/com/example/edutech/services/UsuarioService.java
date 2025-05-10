@@ -1,38 +1,42 @@
 package com.example.edutech.services;
 
+import com.example.edutech.model.Usuario;
+import com.example.edutech.repository.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.edutech.repository.UsuarioRepositorio;
-import com.example.edutech.model.*;
 import java.util.List;
-
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
 
-@Autowired
-private UsuarioRepositorio usuarioRepositorio;
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
-    public List<Usuario> getUsuarios(){
-        return usuarioRepositorio.obtenerUsuarios();
+    public List<Usuario> getUsuarios() {
+        return usuarioRepositorio.findAll();
     }
 
-    public Usuario saveUsuario(Usuario usuario){
-        return usuarioRepositorio.guardar(usuario);
+    public Usuario saveUsuario(Usuario usuario) {
+        return usuarioRepositorio.save(usuario);
     }
 
-    public Usuario getUsuarioId(int id){
-        return usuarioRepositorio.buscarPorId(id);
+    public Usuario getUsuarioId(int id) {
+        Optional<Usuario> optional = usuarioRepositorio.findById(id);
+        return optional.orElse(null);
     }
 
     public Usuario updateUsuario(Usuario usuario){
-        return usuarioRepositorio.actualizar(usuario);
+        return usuarioRepositorio.save(usuario);
     }
 
-    public String deleteUsuario(int id){
-        usuarioRepositorio.eliminar(id);
-        return "usuario eliminado";
+    public boolean deleteUsuario(int id) {
+        if (usuarioRepositorio.existsById(id)) {
+            usuarioRepositorio.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 }
