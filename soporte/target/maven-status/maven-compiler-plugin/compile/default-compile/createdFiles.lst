@@ -1,0 +1,5 @@
+com\soporte\soporte_api\ProyectoApplication.class
+com\soporte\soporte_api\model\Soporte.class
+com\soporte\soporte_api\service\SoporteService.class
+com\soporte\soporte_api\repository\SoporteRepository.class
+com\soporte\soporte_api\controller\SoporteController.class
