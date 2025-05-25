@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+//Declara una clase como componente del servicio. Contiene la lógica de negocio (como validar datos, hacer cálculos o decidir qué repositorio usar).
+//Para separar la lógica de negocio del controlador y mantener una estructura limpia.
 public class MatriculaServicio {
     
     @Autowired
