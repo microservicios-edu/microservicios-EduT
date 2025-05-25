@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
+//Marca una clase como un controlador REST. Combina @Controller y @ResponseBody, lo que significa que los métodos devolverán directamente datos JSON o XML.
+//Para exponer los endpoints HTTP (por ejemplo, /matriculas, /estudiantes, etc.), que permiten interactuar con la aplicación desde el frontend o herramientas como Postman
 @RequestMapping("/matricula")
 public class MatriculaControlador {
     
