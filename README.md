@@ -49,7 +49,20 @@ git push -u origin main  # O master
    cd pagos-notificaciones
    ```
 
-3. **Sube tus cambios**  
+3. ## Tabla: `inscrip_matri`
+
+La siguiente tabla representa la estructura de la base de datos para almacenar las inscripciones de matrícula:
+
+```sql
+CREATE TABLE inscrip_matri (
+  id INT(11) AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255),
+  usuario VARCHAR(255),
+  password VARCHAR(255)
+);
+```
+
+4. **Sube tus cambios**  
    ```bash
    git add .
    git commit -m "feat: cambios en pagos-notificaciones"
