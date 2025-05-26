@@ -35,5 +35,11 @@ public class SoporteController {
         soporte.setId(id); // Esto es clave para evitar errores
         return soporteService.updateSoporte(soporte);
     }
+
+    @DeleteMapping("{id}")
+    public void eliminarSoporte(@PathVariable int id) {
+    soporteService.deleteSoporte(id);
+    }
+
 }
 
