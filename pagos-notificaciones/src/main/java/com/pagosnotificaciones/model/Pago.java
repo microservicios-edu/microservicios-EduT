@@ -1,0 +1,29 @@
+package com.pagosnotificaciones.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "pagos", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"usuario", "monto", "fecha_pago"})
+})
+public class Pago {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String usuario;
+
+    private Double monto;
+
+    @Column(name = "fecha_pago")
+    private LocalDate fechaPago;
+}
