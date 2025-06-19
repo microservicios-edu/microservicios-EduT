@@ -6,6 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "reportes")
 @Data
 public class Reporte {
 
@@ -14,6 +15,8 @@ public class Reporte {
     private Long id;
 
     private String titulo;
+
     private String contenido;
+    
     private LocalDate fecha;
 }

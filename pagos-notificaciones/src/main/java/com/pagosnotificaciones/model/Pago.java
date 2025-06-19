@@ -11,9 +11,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "pagos", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"usuario", "monto", "fecha_pago"})
-})
+@Table(name = "pagos")
 public class Pago {
 
     @Id
@@ -24,6 +22,5 @@ public class Pago {
 
     private Double monto;
 
-    @Column(name = "fecha_pago")
     private LocalDate fechaPago;
 }

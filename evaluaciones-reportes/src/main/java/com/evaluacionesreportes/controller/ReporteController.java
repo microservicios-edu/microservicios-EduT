@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/reportes")
+@RequestMapping("api/v1/reportes")
 public class ReporteController {
 
     @Autowired

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 //Declara una clase como una entidad persistente, es decir, una tabla en la base de datos.
 //Esto permite que Spring Data JPA gestione automáticamente operaciones CRUD (insert, update, delete, select).
-@Table(name = "inscrip_matricula")
+@Table(name = "matricula")
 
 public class Matricula {
 
