@@ -25,6 +25,6 @@ public class Usuario {
     //Indica que el valor del campo se genera automáticamente en la base de datos al insertar un nuevo registro.
     private int id;
     private String nombre;
-    private String rut;
+    private int edad;
 }
 

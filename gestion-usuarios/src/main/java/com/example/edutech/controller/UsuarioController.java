@@ -4,13 +4,13 @@ import com.example.edutech.model.Usuario;
 import com.example.edutech.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.ResponseEntity;
 
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/v1/usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -22,6 +22,12 @@ public class UsuarioController {
         return usuarioService.getUsuarios();
     }
 
+    // Método para obtener un usuario por ID
+    @GetMapping("/{id}")
+    public Usuario obtenerUsuarioPorId(@PathVariable int id) {
+        return usuarioService.getUsuarioId(id);
+    }
+
     // Método para agregar un nuevo usuario
     @PostMapping
     public Usuario agregarUsuario(@RequestBody Usuario usuario) {
@@ -31,6 +37,7 @@ public class UsuarioController {
     // Método para actualizar un usuario existente
     @PutMapping("/{id}")
     public Usuario actualizarUsuario(@PathVariable int id, @RequestBody Usuario usuario){
+        usuario.setId(id);
         return usuarioService.updateUsuario(usuario);
     }
 

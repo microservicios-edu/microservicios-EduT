@@ -3,6 +3,8 @@ package com.soporte.soporte_api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.soporte.soporte_api.model.Soporte;
@@ -36,10 +38,15 @@ public class SoporteController {
         return soporteService.updateSoporte(soporte);
     }
 
-    @DeleteMapping("{id}")
-    public void eliminarSoporte(@PathVariable int id) {
-    soporteService.deleteSoporte(id);
-    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarSoporte(@PathVariable int id) {
+        try {
+            soporteService.deleteSoporte(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
 
+    }
 }
 
