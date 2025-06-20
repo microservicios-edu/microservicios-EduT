@@ -1,3 +1,7 @@
+//variables generales
+let rut = document.getElementById('rut');
+let clave = document.getElementById('clave');
+
 document.getElementById('loginForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     const rut = document.getElementById('rut').value;
@@ -12,4 +16,16 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       alert("Error al autenticarse");
     }
   });
+
+  function botonLimpiar(){
+
+    if(rut.value !== '' || clave.value !== ''){
+      alert('Datos borrados');
+      rut.value = '';
+      clave.value = '';
+      console.log('Datos borrados');
+    } else {
+      alert('No hay datos que borrar');
+    }
+  }
   
