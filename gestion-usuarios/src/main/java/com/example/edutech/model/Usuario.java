@@ -26,5 +26,6 @@ public class Usuario {
     private int id;
     private String nombre;
     private String rut;
+    private String tipoUsuario;
 }
 
