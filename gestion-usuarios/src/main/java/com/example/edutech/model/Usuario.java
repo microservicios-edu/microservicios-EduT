@@ -29,4 +29,3 @@ public class Usuario {
     private String tipoUsuario;
     private String password;
 }
-
