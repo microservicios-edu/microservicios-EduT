@@ -3,6 +3,7 @@ const nombreInput = document.getElementById('nombre');
 const rutInput = document.getElementById('rut');
 const userList = document.getElementById('userList');
 const tipoUsuarioInput = document.getElementById('tipoUsuario');
+const clave = document.getElementById('password');
 
 
 let editingId = null; // ID del usuario que se está editando
@@ -17,11 +18,14 @@ form.addEventListener('submit', async function (e) {
 
   const nombre = nombreInput.value;
   const rut = rutInput.value;
+  const tipoUsuario =  tipoUsuarioInput.value;
+  const password = clave.value;
 
   const usuario = {
     nombre,
     rut,
-    tipoUsuario: tipoUsuarioInput.value
+    tipoUsuario,
+    password
   };
 
   try {
@@ -69,15 +73,18 @@ async function cargarUsuarios() {
         <strong>${usuario.nombre}
         </strong> - ${usuario.rut}
          </strong> - ${usuario.tipoUsuario}
+         </strong> - ${usuario.password}
         <button class="editar">Editar</button>
         <button class="eliminar">Eliminar</button>
       `;
 
       // Botón editar
       div.querySelector('.editar').addEventListener('click', () => {
-        nombreInput.value = usuario.nombre;
-        rutInput.value = usuario.rut;
         editingId = usuario.id;
+        rutInput.value = usuario.rut;
+        nombreInput.value = usuario.nombre;
+        tipoUsuarioInput.value = usuario.tipoUsuario;
+        password.value = usuario.password; 
       });
 
       // Botón eliminar
@@ -95,7 +102,6 @@ async function cargarUsuarios() {
           }
         }
       });
-
       userList.appendChild(div);
     });
   } catch (error) {

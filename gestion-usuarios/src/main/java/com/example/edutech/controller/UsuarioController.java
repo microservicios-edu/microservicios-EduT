@@ -5,6 +5,7 @@ import com.example.edutech.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.http.ResponseEntity;
+import java.util.Map;
 
 
 import java.util.List;
@@ -52,5 +53,24 @@ public class UsuarioController {
             return "Usuario no encontrado";
         }
     }
+
+    // Método para buscar un usuario por RUT y cambiar clave
+    @PutMapping("/cambiar-contrasena")
+    public String cambiarContrasena(@RequestBody Map<String, String> datos) {
+        String rut = datos.get("rut");
+        String nuevaPassword = datos.get("password");
+
+        Usuario usuario = usuarioService.getUsuarioPorRut(rut);
+
+        if (usuario == null) {
+            return "Usuario no encontrado";
+        }
+
+        usuario.setPassword(nuevaPassword);
+        usuarioService.updateUsuario(usuario);
+        return "Contraseña actualizada exitosamente";
+    }
+
+    
 }
 

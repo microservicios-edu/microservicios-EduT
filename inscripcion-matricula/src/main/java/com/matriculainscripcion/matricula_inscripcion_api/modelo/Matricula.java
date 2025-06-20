@@ -22,7 +22,7 @@ public class Matricula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String rut;
     private String nombre;
-    private String usuario;
     private String password;
 }

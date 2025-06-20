@@ -14,6 +14,14 @@
     <input type="password" id="clave" placeholder="Clave" required />
     <button type="submit">Ingresar</button>
     <button type="button" onclick="botonLimpiar()">Limpiar</button>
+    <p>¿Olvidaste tu contraseña?</p>
+    <button type="button" id="btnNuevaContrasena" onclick="mostrarFormularioContrasena()">Crear Nueva Contraseña</button>
+    <div id="formNuevaContrasena" style="display: none;">
+      <input type="text" id="nuevoRut" placeholder="RUT" required />
+      <input type="password" id="nuevaClave" placeholder="Nueva Clave" required />
+      <button type="button" onclick="guardarContrasena()">Guardar Contraseña</button>
+      <button type="button" onclick="cerrarFormularioContrasena()">Cerrar</button>
+    </div>
   </form>
 
   <script src="../frontend/javascript/login.js"></script>
