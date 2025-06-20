@@ -20,10 +20,9 @@ document.getElementById('loginForm').addEventListener('submit', async function (
   function botonLimpiar(){
 
     if(rut.value !== '' || clave.value !== ''){
-      alert('Datos borrados');
       rut.value = '';
       clave.value = '';
-      console.log('Datos borrados');
+      alert('Datos borrados');
     } else {
       alert('No hay datos que borrar');
     }

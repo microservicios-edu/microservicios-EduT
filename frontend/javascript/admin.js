@@ -2,6 +2,8 @@ const form = document.getElementById('userForm');
 const nombreInput = document.getElementById('nombre');
 const rutInput = document.getElementById('rut');
 const userList = document.getElementById('userList');
+const tipoUsuarioInput = document.getElementById('tipoUsuario');
+
 
 let editingId = null; // ID del usuario que se está editando
 
@@ -19,19 +21,19 @@ form.addEventListener('submit', async function (e) {
   const usuario = {
     nombre,
     rut,
-    tipoUsuario: "estudiante" // o cualquier tipo que uses
+    tipoUsuario: tipoUsuarioInput.value
   };
 
   try {
     let response;
     if (editingId) {
-      response = await fetch(`/api/v1/usuarios/${editingId}`, {
+      response = await fetch(`http://localhost:8081/api/v1/usuarios/${editingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usuario)
       });
     } else {
-      response = await fetch('/api/v1/usuarios', {
+      response = await fetch('http://localhost:8081/api/v1/usuarios', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usuario)
@@ -53,7 +55,7 @@ form.addEventListener('submit', async function (e) {
 
 async function cargarUsuarios() {
   try {
-    const response = await fetch('/api/v1/usuarios');
+    const response = await fetch('http://localhost:8081/api/v1/usuarios');
     const usuarios = await response.json();
 
     userList.innerHTML = '';
@@ -63,7 +65,10 @@ async function cargarUsuarios() {
       div.classList.add('usuario');
 
       div.innerHTML = `
-        <strong>${usuario.nombre}</strong> - ${usuario.rut}
+        <strong>Usuario</strong>
+        <strong>${usuario.nombre}
+        </strong> - ${usuario.rut}
+         </strong> - ${usuario.tipoUsuario}
         <button class="editar">Editar</button>
         <button class="eliminar">Eliminar</button>
       `;
@@ -79,7 +84,7 @@ async function cargarUsuarios() {
       div.querySelector('.eliminar').addEventListener('click', async () => {
         if (confirm(`¿Eliminar al usuario con RUT ${usuario.rut}?`)) {
           try {
-            const res = await fetch(`/api/v1/usuarios/${usuario.id}`, {
+            const res = await fetch(`http://localhost:8081/api/v1/usuarios/${usuario.id}`, {
               method: 'DELETE'
             });
             const text = await res.text();
