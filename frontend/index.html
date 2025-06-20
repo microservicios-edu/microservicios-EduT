@@ -9,19 +9,21 @@
 <body>
   <!-- RF.1.1: Autenticación con RUT y clave ....-->
   <h1>Iniciar la sesión</h1>
+
   <form id="loginForm">
-    <input type="text" id="rut" placeholder="RUT" required />
-    <input type="password" id="clave" placeholder="Clave" required />
+    <input type="text" id="rut" name="rut" placeholder="RUT" required />
+    <input type="password" id="clave" name="clave" placeholder="Clave" required />
     <button type="submit">Ingresar</button>
     <button type="button" onclick="botonLimpiar()">Limpiar</button>
     <p>¿Olvidaste tu contraseña?</p>
     <button type="button" id="btnNuevaContrasena" onclick="mostrarFormularioContrasena()">Crear Nueva Contraseña</button>
-    <div id="formNuevaContrasena" style="display: none;">
-      <input type="text" id="nuevoRut" placeholder="RUT" required />
-      <input type="password" id="nuevaClave" placeholder="Nueva Clave" required />
-      <button type="button" onclick="guardarContrasena()">Guardar Contraseña</button>
-      <button type="button" onclick="cerrarFormularioContrasena()">Cerrar</button>
-    </div>
+  </form>
+  
+  <form id="formNuevaContrasena" style="display: none;">
+    <input type="text" id="nuevoRut" name="nuevoRut" placeholder="RUT" required />
+    <input type="password" id="nuevaClave" name="nuevaClave" placeholder="Nueva Clave" required />
+    <button type="button" onclick="guardarContrasena()">Guardar Contraseña</button>
+    <button type="button" onclick="cerrarFormularioContrasena()">Cerrar</button>
   </form>
 
   <script src="../frontend/javascript/login.js"></script>
