@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.http.ResponseEntity;
 import java.util.Map;
+import java.util.HashMap;
+
 
 
 import java.util.List;
@@ -56,21 +58,47 @@ public class UsuarioController {
 
     // Método para buscar un usuario por RUT y cambiar clave
     @PutMapping("/cambiar-contrasena")
-    public String cambiarContrasena(@RequestBody Map<String, String> datos) {
+    public Map<String, String> cambiarContrasena(@RequestBody Map<String, String> datos) {
         String rut = datos.get("rut");
-        String nuevaPassword = datos.get("password");
+        String password = datos.get("password");
+
+        Map<String, String> response = new HashMap<>();
 
         Usuario usuario = usuarioService.getUsuarioPorRut(rut);
 
         if (usuario == null) {
-            return "Usuario no encontrado";
+            response.put("message", "Usuario no encontrado");
+            return response;
         }
 
-        usuario.setPassword(nuevaPassword);
+        usuario.setPassword(password);
         usuarioService.updateUsuario(usuario);
-        return "Contraseña actualizada exitosamente";
+
+        response.put("message", "Contraseña actualizada exitosamente");
+        return response;
     }
 
+    //Método para autenticar a un usuario
+    @GetMapping("/login") //devolverá un archivo json con la respuesta
+    public Map<String, String> login(@RequestParam String rut, @RequestParam String clave) {
+        Usuario usuario = usuarioService.getUsuarioPorRut(rut);
+        Map<String, String> response = new HashMap<>(); // ocupamos Map en la firma del método y HasMap como implementación
+    
+        if (usuario == null) {
+            response.put("message", "Usuario no encontrado");
+            return response;
+        }
+    
+        if (!usuario.getPassword().equals(clave)) {
+            response.put("message", "Clave incorrecta");
+            return response;
+        }
+    
+        response.put("message", "Autenticación exitosa");
+        return response;
+    }
     
 }
+
+
 
