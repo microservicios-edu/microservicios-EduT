@@ -3,7 +3,7 @@ const nombreInput = document.getElementById('nombre');
 const rutInput = document.getElementById('rut');
 const userList = document.getElementById('userList');
 
-let editingRut = null; // Rut que se está editando
+let editingId = null; // ID del usuario que se está editando
 
 // Cargar usuarios al iniciar
 document.addEventListener('DOMContentLoaded', async () => {
@@ -16,13 +16,34 @@ form.addEventListener('submit', async function (e) {
   const nombre = nombreInput.value;
   const rut = rutInput.value;
 
-  try {
-    const endpoint = editingRut ? '/api/actualizar_usuario' : '/api/crear_usuario';
-    const response = await fetch(`${endpoint}?nombre=${nombre}&rut=${rut}`);
-    const data = await response.json();
-    alert(data.message || (editingRut ? "Usuario actualizado" : "Usuario creado"));
+  const usuario = {
+    nombre,
+    rut,
+    tipoUsuario: "estudiante" // o cualquier tipo que uses
+  };
 
-    editingRut = null;
+  try {
+    let response;
+    if (editingId) {
+      response = await fetch(`/api/v1/usuarios/${editingId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(usuario)
+      });
+    } else {
+      response = await fetch('/api/v1/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(usuario)
+      });
+    }
+
+    if (!response.ok) throw new Error("Error en la respuesta");
+
+    const data = await response.json();
+    alert(editingId ? "Usuario actualizado" : "Usuario creado");
+
+    editingId = null;
     form.reset();
     await cargarUsuarios();
   } catch (error) {
@@ -32,7 +53,7 @@ form.addEventListener('submit', async function (e) {
 
 async function cargarUsuarios() {
   try {
-    const response = await fetch('/api/usuarios');
+    const response = await fetch('/api/v1/usuarios');
     const usuarios = await response.json();
 
     userList.innerHTML = '';
@@ -43,24 +64,26 @@ async function cargarUsuarios() {
 
       div.innerHTML = `
         <strong>${usuario.nombre}</strong> - ${usuario.rut}
-        <button class="editar" data-rut="${usuario.rut}" data-nombre="${usuario.nombre}">Editar</button>
-        <button class="eliminar" data-rut="${usuario.rut}">Eliminar</button>
+        <button class="editar">Editar</button>
+        <button class="eliminar">Eliminar</button>
       `;
 
       // Botón editar
       div.querySelector('.editar').addEventListener('click', () => {
         nombreInput.value = usuario.nombre;
         rutInput.value = usuario.rut;
-        editingRut = usuario.rut;
+        editingId = usuario.id;
       });
 
       // Botón eliminar
       div.querySelector('.eliminar').addEventListener('click', async () => {
         if (confirm(`¿Eliminar al usuario con RUT ${usuario.rut}?`)) {
           try {
-            const res = await fetch(`/api/eliminar_usuario?rut=${usuario.rut}`);
-            const data = await res.json();
-            alert(data.message || "Usuario eliminado");
+            const res = await fetch(`/api/v1/usuarios/${usuario.id}`, {
+              method: 'DELETE'
+            });
+            const text = await res.text();
+            alert(text);
             await cargarUsuarios();
           } catch (err) {
             alert("Error al eliminar usuario");
