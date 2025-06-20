@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/pagos")
+@RequestMapping("api/v1/pagos")
 public class PagoController {
 
     @Autowired
@@ -46,7 +46,9 @@ public class PagoController {
         try {
             pagoService.crearPago(pago);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("✅ Pago registrado exitosamente.");
+                    .body("✅ Pago registrado exitosamente."+"\n\tDuoc UC Alameda"+"\n\nFecha : "+pago.getFechaPago()+
+                    "\nRealizado por : "+ pago.getUsuario()+
+                    "\nMonto : "+pago.getMonto()+"\n________________________________"+"\nEl pago se vera reflejado en 24 Horas.");
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(" No se pudo registrar el pago: " + e.getMessage());
