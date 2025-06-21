@@ -2,20 +2,38 @@
 let rut = document.getElementById('rut');
 let clave = document.getElementById('clave');
 
-document.getElementById('loginForm').addEventListener('submit', async function (e) {
+
+  document.getElementById('loginForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     const rut = document.getElementById('rut').value;
     const clave = document.getElementById('clave').value;
   
     try {
-      const response = await fetch(`/api/login?rut=${rut}&clave=${clave}`);
-      const data = await response.json();
-      alert(data.message || "Autenticación exitosa");
-      window.location.href = "home.html";
+      const response = await fetch(`http://localhost:8081/api/v1/usuarios/login?rut=${rut}&clave=${clave}`);
+      
+      // Verificamos si la respuesta fue exitosa (status 200)
+      if (response.ok) {
+        const data = await response.json(); 
+  
+        if (data.message == "Autenticación exitosa") {
+          alert(data.message);
+          window.location.href = "/frontend/html/home.html";
+          console.log("Respuesta del backend:", data);
+        } else {
+          alert(data.message);  // muestra "Usuario no encontrado" o "Clave incorrecta"
+          console.log("No autenticado:", data);
+          // No redirige, se queda en index.html
+        }
+      } else {
+        alert("Error en la respuesta del servidor");
+      }
+  
     } catch (error) {
       alert("Error al autenticarse");
+      console.error(error);
     }
   });
+  
 
   function botonLimpiar(){
 
@@ -43,28 +61,27 @@ document.getElementById('loginForm').addEventListener('submit', async function (
   }
 
   async function guardarContrasena() {
-    const rut = document.getElementById('nuevoRut').value;
-    const clave = document.getElementById('nuevaClave').value;
-  
-    if (rut === '' || clave === '') {
-      alert('Por favor, complete todos los campos');
-      return;
-    }
-  
-    try {
-      const response = await fetch('http://localhost:8081/api/v1/usuarios/cambiar-contrasena', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ rut, password: clave }) // Aquí se usa "password"
-      });
-  
-      const data = await response.json();
-      alert(data.message || "Contraseña cambiada exitosamente");
-      cerrarFormularioContrasena();
-    } catch (error) {
-      alert("Error al cambiar la contraseña");
-    }
+  const rut = document.getElementById('nuevoRut').value;
+  const clave = document.getElementById('nuevaClave').value;
+
+  if (rut === '' || clave === '') {
+    alert('Por favor, complete todos los campos');
+    return;
   }
-  
+
+  try {
+    const response = await fetch('http://localhost:8081/api/v1/usuarios/cambiar-contrasena', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ rut, password: clave }) // Aquí se usa "password"
+    });
+
+    const data = await response.json();
+    alert(data.message || "Contraseña cambiada exitosamente");
+    cerrarFormularioContrasena();
+  } catch (error) {
+    alert("Error al cambiar la contraseña");
+  }
+}
