@@ -25,4 +25,7 @@ public class Matricula {
     private String rut;
     private String nombre;
     private String password;
+    private int idCurso;
+    private String nombreCurso;
+    private String fechaMatricula;
 }
