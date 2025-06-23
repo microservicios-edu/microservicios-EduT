@@ -21,6 +21,22 @@ public class MatriculaServicio {
     }
 
     public Matricula saveMatricula(Matricula matricula){
+
+        if(matricula.getRut() == null || matricula.getRut().isEmpty()) {
+            throw new IllegalArgumentException("El RUT es obligatorio");
+        }
+        if(matricula.getIdCurso() <= 0) {
+            throw new IllegalArgumentException("El idCurso debe ser positivo");
+        }
+
+        Matricula matricula = new Matricula();
+        matricula.setRut(dto.getRut());
+        matricula.setNombre(dto.getNombre());
+        matricula.setPassword(dto.getPassword());
+        matricula.setIdCurso(dto.getIdCurso());
+        matricula.setNombreCurso(dto.getNombreCurso());
+        matricula.setFechaMatricula(dto.getFechaMatricula());
+
         return matriculaRepositorio.save(matricula);
     }
 
