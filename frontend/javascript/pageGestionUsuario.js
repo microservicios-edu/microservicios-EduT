@@ -70,13 +70,13 @@ async function cargarUsuarios() {
 
       div.innerHTML = `
         <strong>Usuario</strong>
-        <strong>${usuario.nombre}
-        </strong> - ${usuario.rut}
-         </strong> - ${usuario.tipoUsuario}
-         </strong> - ${usuario.password}
+        <strong>${usuario.nombre}</strong> - ${usuario.rut}
+        <strong>Tipo de Usuario: </strong>${usuario.tipoUsuario}
+        </strong> - ${usuario.password}
         <button class="editar">Editar</button>
         <button class="eliminar">Eliminar</button>
       `;
+
 
       // Botón editar
       div.querySelector('.editar').addEventListener('click', () => {

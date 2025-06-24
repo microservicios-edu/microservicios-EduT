@@ -30,6 +30,10 @@ let clave = document.getElementById('clave');
             window.location.href = "/frontend/html/homePageProfesor.html";
           } else if (tipo === "gerente") {
             window.location.href = "/frontend/html/homePageGerenteCurso.html";
+          } else if (tipo === "administrador") {
+            window.location.href = "/frontend/html/homeAdministrador.html";
+          } else if (tipo === "soporte") {
+            window.location.href = "/frontend/html/homePageSoporte.html";
           } else {
             alert("Tipo de usuario desconocido. Contacta a tu administrador");
           }
