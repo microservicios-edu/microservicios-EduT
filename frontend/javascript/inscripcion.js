@@ -70,8 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       container.appendChild(cursoDiv);
     });
   } catch (error) {
-    alert("Error al cargar los cursos.");
-    console.error("Error cargando cursos:", error);
-    window.location.href = "../html/home.html";
+    alert("Error al cargar los cursos. Volverá a la página de inicio.");
+    window.location.href = "../html/homePageEstudiante.html"; // Redirigir a la página de inicio del estudiante
   }
 });

@@ -14,15 +14,22 @@
   <form id="userForm">
     <input type="text" id="nombre" placeholder="Nombre" required />
     <input type="text" id="rut" placeholder="RUT" required />
-    <input type="text" id="tipoUsuario" placeholder="Tipo de usuario" required />
+    <select id="tipoUsuario" required>
+      <option value="">Tipo de usuario</option>
+      <option value="estudiante">estudiante</option>
+      <option value="docente">docente</option>
+      <option value="gerente">gerente</option>
+      <option value="administrador">administrador</option>
+      <option value="soporte">soporte</option>
+    </select>    
     <input type="text" id="password" placeholder="Clave" required />
-    <button type="submit">Crear / Actualizar Usuario</button>
+    <button type="submit">Crear / Actualizqar Usuario</button>
   </form>
-  <a href="../html/home.html"><button type="button">Cerrar</button></a>
+  <a href="../html/homeAdministrador.html"><button type="button">Volver al Home</button></a>
 
   <!-- Lista dinámica de usuarios -->
   <div id="userList"></div>
 
-  <script src="../javascript/admin.js"></script>
+  <script src="../javascript/pageGestionUsuario.js"></script>
 </body>
 </html>
