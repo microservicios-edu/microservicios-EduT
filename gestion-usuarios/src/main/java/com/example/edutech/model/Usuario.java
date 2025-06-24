@@ -24,6 +24,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //Indica que el valor del campo se genera automáticamente en la base de datos al insertar un nuevo registro.
     private int id;
+    @Column(unique = true)
     private String rut;
     private String nombre;
     private String tipoUsuario;
