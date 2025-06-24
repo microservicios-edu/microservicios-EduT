@@ -4,9 +4,10 @@ import com.example.edutech.model.Usuario;
 import com.example.edutech.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-//import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity;
 import java.util.Map;
 import java.util.HashMap;
+import org.springframework.http.HttpStatus;
 
 
 
@@ -33,9 +34,25 @@ public class UsuarioController {
 
     // Método para agregar un nuevo usuario
     @PostMapping
-    public Usuario agregarUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.saveUsuario(usuario);
+    public ResponseEntity<?> agregarUsuario(@RequestBody Usuario usuario) {
+        try {
+            Usuario usuarioExistente = usuarioService.getUsuarioPorRut(usuario.getRut());
+            if (usuarioExistente != null) {
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body("Error: El RUT ya está registrado");
+            }
+    
+            Usuario nuevoUsuario = usuarioService.saveUsuario(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
+            
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al agregar usuario: " + e.getMessage());
+        }
     }
+    
 
     // Método para actualizar un usuario existente
     @PutMapping("/{id}")
@@ -95,8 +112,26 @@ public class UsuarioController {
         }
     
         response.put("message", "Autenticación exitosa");
+        response.put("tipoUsuario", usuario.getTipoUsuario());
+        response.put("rut", usuario.getRut());
         return response;
     }
+
+    // Método para obtener rut y nombre de un usuario autenticado
+    @GetMapping("/datos-usuario")
+    public Map<String, String> obtenerDatosUsuario(@RequestParam String rut) {
+        Usuario usuario = usuarioService.getUsuarioPorRut(rut);
+        Map<String, String> response = new HashMap<>();
+
+        if (usuario == null) {
+            response.put("message", "Usuario no encontrado");
+            return response;
+        }
+
+        response.put("rut", usuario.getRut());
+        response.put("nombre", usuario.getNombre());
+        return response;
+}
     
 }
 

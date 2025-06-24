@@ -24,8 +24,6 @@ public class Matricula {
     private int id;
     private String rut;
     private String nombre;
-    private String password;
-    private int idCurso;
-    private String nombreCurso;
-    private String fechaMatricula;
+    @Column(name = "curso_id")
+    private Long cursoId;
 }

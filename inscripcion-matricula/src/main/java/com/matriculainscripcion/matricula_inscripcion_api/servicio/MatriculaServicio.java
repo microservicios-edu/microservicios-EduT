@@ -4,6 +4,8 @@ import com.matriculainscripcion.matricula_inscripcion_api.modelo.Matricula;
 import com.matriculainscripcion.matricula_inscripcion_api.repositorio.MatriculaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.matriculainscripcion.matricula_inscripcion_api.cliente.CursoCliente;
+import com.matriculainscripcion.matricula_inscripcion_api.dto.CursoDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,27 +18,18 @@ public class MatriculaServicio {
     @Autowired
     private MatriculaRepositorio matriculaRepositorio;
 
+    @Autowired
+    private CursoCliente cursoCliente;
+
     public List<Matricula> getMatriculas(){
         return matriculaRepositorio.findAll();
     }
 
+    public List<CursoDTO> listarCursosDisponibles() { // consultar los cursos disponibles
+        return cursoCliente.obtenerCursos();
+    }
+
     public Matricula saveMatricula(Matricula matricula){
-
-        if(matricula.getRut() == null || matricula.getRut().isEmpty()) {
-            throw new IllegalArgumentException("El RUT es obligatorio");
-        }
-        if(matricula.getIdCurso() <= 0) {
-            throw new IllegalArgumentException("El idCurso debe ser positivo");
-        }
-
-        Matricula matricula = new Matricula();
-        matricula.setRut(dto.getRut());
-        matricula.setNombre(dto.getNombre());
-        matricula.setPassword(dto.getPassword());
-        matricula.setIdCurso(dto.getIdCurso());
-        matricula.setNombreCurso(dto.getNombreCurso());
-        matricula.setFechaMatricula(dto.getFechaMatricula());
-
         return matriculaRepositorio.save(matricula);
     }
 
@@ -56,6 +49,5 @@ public class MatriculaServicio {
         }
         return false;
     }
-
-
+    
 }

@@ -17,8 +17,23 @@ let clave = document.getElementById('clave');
   
         if (data.message == "Autenticación exitosa") {
           alert(data.message);
-          window.location.href = "/frontend/html/home.html";
-          console.log("Respuesta del backend:", data);
+          console.log("Usuario autenticado:", data);
+          console.log("Datos del usuario:", data);
+
+          localStorage.setItem('usuario', JSON.stringify(data));
+
+          const tipo = data.tipoUsuario.toLowerCase();
+
+          if (tipo === "estudiante") {
+            window.location.href = "/frontend/html/homePageEstudiante.html";
+          } else if (tipo === "docente") {
+            window.location.href = "/frontend/html/homePageProfesor.html";
+          } else if (tipo === "gerente") {
+            window.location.href = "/frontend/html/homePageGerenteCurso.html";
+          } else {
+            alert("Tipo de usuario desconocido. Contacta a tu administrador");
+          }
+          
         } else {
           alert(data.message);  // muestra "Usuario no encontrado" o "Clave incorrecta"
           console.log("No autenticado:", data);

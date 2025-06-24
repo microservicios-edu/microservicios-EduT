@@ -1,10 +1,10 @@
 package com.matriculainscripcion.matricula_inscripcion_api.controlador;
 
-import com.matriculainscripcion.matricula_inscripcion_api.modelo.MatriculaDTO;
 import com.matriculainscripcion.matricula_inscripcion_api.modelo.Matricula;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.matriculainscripcion.matricula_inscripcion_api.servicio.MatriculaServicio;
 import org.springframework.web.bind.annotation.*;
+import com.matriculainscripcion.matricula_inscripcion_api.dto.CursoDTO;
 //import org.springframework.http.ResponseEntity;
 
 
@@ -31,20 +31,12 @@ public class MatriculaControlador {
     }
 
     // Método para agregar una nueva matrícula
-    // @PostMapping
-    // public Matricula agregarMatricula(@RequestBody Matricula matricula){
-    //     return matriculaServicio.saveMatricula(matricula);
-    // }
-
-    @PostMapping("/dto")
-    public ResponseEntity<?> saveMatricula(@RequestBody MatriculaDTO dto) {
-            try {
-                Matricula nuevaMatricula = matriculaServicio.saveMatricula(dto);
-                return ResponseEntity.ok(nuevaMatricula);
-            } catch (IllegalArgumentException e) {
-                return ResponseEntity.badRequest().body(e.getMessage());
-            }
+    @PostMapping
+    public Matricula agregarMatricula(@RequestBody Matricula matricula){
+         return matriculaServicio.saveMatricula(matricula);
     }
+
+    
     // Método para actualizar una matrícula existente
     @PutMapping("/{id}")
     public Matricula actualizarMatricula(@PathVariable int id, @RequestBody Matricula matricula){
@@ -62,4 +54,10 @@ public class MatriculaControlador {
             return "Matrícula no encontrada";
         }
     }
+    
+    @GetMapping("/cursos")
+    public List<CursoDTO> listarCursosDesdeRecursosEducativos() {
+        return matriculaServicio.listarCursosDisponibles();
+    }
+    
 }

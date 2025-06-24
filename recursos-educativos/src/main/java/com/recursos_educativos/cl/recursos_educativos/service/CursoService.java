@@ -1,12 +1,15 @@
 package com.recursos_educativos.cl.recursos_educativos.service;
 
-import com.recursos_educativos.cl.recursos_educativos.model.Curso;
-import com.recursos_educativos.cl.recursos_educativos.repository.CursoRepository;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.recursos_educativos.cl.recursos_educativos.dto.CursoDTO;
+import com.recursos_educativos.cl.recursos_educativos.model.Curso;
+import com.recursos_educativos.cl.recursos_educativos.repository.CursoRepository;
 
 @Service
 public class CursoService {
@@ -17,6 +20,19 @@ public class CursoService {
     public List<Curso> listarCursos() {
         return cursoRepository.findAll();
     }
+
+    public List<CursoDTO> listarCursosDisponibles() { //Se actualiza service para lista de cursos activos
+            return cursoRepository.findAll().stream()
+                    .filter(Curso::isActivo)
+                    .map(curso -> new CursoDTO(
+                            curso.getId(),
+                            curso.getNombre(),
+                            curso.getDescripcion(),
+                            curso.getCuposDisponibles(),
+                            curso.isActivo()
+                    ))
+                    .collect(Collectors.toList());
+        }
 
     public Optional<Curso> buscarPorId(Long id) {
         return cursoRepository.findById(id);
