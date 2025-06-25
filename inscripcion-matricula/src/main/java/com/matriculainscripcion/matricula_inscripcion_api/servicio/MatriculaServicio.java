@@ -4,6 +4,8 @@ import com.matriculainscripcion.matricula_inscripcion_api.modelo.Matricula;
 import com.matriculainscripcion.matricula_inscripcion_api.repositorio.MatriculaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.matriculainscripcion.matricula_inscripcion_api.cliente.CursoCliente;
+import com.matriculainscripcion.matricula_inscripcion_api.dto.CursoDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +18,15 @@ public class MatriculaServicio {
     @Autowired
     private MatriculaRepositorio matriculaRepositorio;
 
+    @Autowired
+    private CursoCliente cursoCliente;
+
     public List<Matricula> getMatriculas(){
         return matriculaRepositorio.findAll();
+    }
+
+    public List<CursoDTO> listarCursosDisponibles() { // consultar los cursos disponibles
+        return cursoCliente.obtenerCursos();
     }
 
     public Matricula saveMatricula(Matricula matricula){
@@ -40,6 +49,5 @@ public class MatriculaServicio {
         }
         return false;
     }
-
-
+    
 }

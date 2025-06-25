@@ -1,10 +1,12 @@
 package com.pagosnotificaciones.service;
 
+import com.pagosnotificaciones.model.Notificacion;
 import com.pagosnotificaciones.model.Pago;
 import com.pagosnotificaciones.repository.PagoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,8 @@ public class PagoService {
 
     @Autowired
     private PagoRepository pagoRepository;
+    @Autowired
+    private NotificacionService notificacionService; // inyectamos el servicio
 
     public List<Pago> obtenerTodosLosPagos() {
         return pagoRepository.findAll();
@@ -23,14 +27,20 @@ public class PagoService {
     }
 
     public Pago crearPago(Pago pago) {
-        boolean existe = pagoRepository.existsByUsuarioAndMontoAndFechaPago(
-                pago.getUsuario(), pago.getMonto(), pago.getFechaPago());
+        // Guardar el pago
+        Pago pagoGuardado = pagoRepository.save(pago);
 
-        if (existe) {
-            throw new RuntimeException("Ya existe un pago con esos datos.");
-        }
+        // Crear notificación automáticamente
+        Notificacion notificacion = new Notificacion();
+        notificacion.setMensaje("✅ Se ha registrado un pago de " + pago.getMonto() +
+                " por parte del usuario " + pago.getUsuario());
+        notificacion.setFechaEnvio(LocalDate.now());
+        notificacion.setPagoId(pagoGuardado.getId());
 
-        return pagoRepository.save(pago);
+        // Guardar la notificación
+        notificacionService.guardarNotificacion(notificacion);
+
+        return pagoGuardado;
     }
 
     public Pago actualizarPago(Long id, Pago pagoActualizado) {

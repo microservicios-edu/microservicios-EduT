@@ -16,8 +16,8 @@ public class Soporte {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String rut;
     private String nombreUsuario;
-    private String correo;
     private String comentario;
     private String estado;
     private String fechaCreacion;

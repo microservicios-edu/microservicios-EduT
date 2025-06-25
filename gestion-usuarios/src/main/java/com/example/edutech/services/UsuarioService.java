@@ -39,4 +39,9 @@ public class UsuarioService {
         return false;
     }
 
+    public Usuario getUsuarioPorRut(String rut) {
+        Optional<Usuario> optional = usuarioRepositorio.findByRut(rut);
+        return optional.orElse(null);
+    }
+
 }

@@ -12,7 +12,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/evaluaciones")
+@RequestMapping("/api/v1/evaluaciones")
 public class EvaluacionController {
 
     @Autowired

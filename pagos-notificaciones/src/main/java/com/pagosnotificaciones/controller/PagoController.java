@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/pagos")
+@RequestMapping("api/v1/pagos")
 public class PagoController {
 
     @Autowired
@@ -19,37 +19,35 @@ public class PagoController {
     @GetMapping
     public ResponseEntity<?> obtenerTodosLosPagos() {
         List<Pago> pagos = pagoService.obtenerTodosLosPagos();
-        
+
         if (pagos.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                .body("No hay pagos registrados.");
+                    .body("No hay pagos registrados.");
         }
-        
+
         return ResponseEntity.ok(pagos);
     }
-    
 
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerPagoPorId(@PathVariable Long id) {
         Optional<Pago> pagoOptional = pagoService.obtenerPagoPorId(id);
-        
+
         if (pagoOptional.isPresent()) {
             return ResponseEntity.ok(pagoOptional.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                .body("Pago no encontrado con id: " + id);
+                    .body("Pago no encontrado con id: " + id);
         }
     }
 
     @PostMapping
     public ResponseEntity<?> crearPago(@RequestBody Pago pago) {
         try {
-            pagoService.crearPago(pago);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("✅ Pago registrado exitosamente.");
+            Pago pagoGuardado = pagoService.crearPago(pago);
+            return new ResponseEntity<>(pagoGuardado, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(" No se pudo registrar el pago: " + e.getMessage());
+                    .body("No se pudo registrar el pago: " + e.getMessage());
         }
     }
 
