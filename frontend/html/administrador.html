@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/administrador.css" />
+  <script src="javascript/login.js"></script>
+</head>
+<body>
+  <!-- RF2.1: Crear, actualizar, desactivar y eliminar cuentas -->
+  
+  <h1>Gestión de Usuarios</h1>
+
+  <form id="userForm">
+    <input type="text" id="nombre" placeholder="Nombre" required />
+    <input type="text" id="rut" placeholder="RUT" required />
+    <input type="text" id="tipoUsuario" placeholder="Tipo de usuario" required />
+    <input type="text" id="password" placeholder="Clave" required />
+    <button type="submit">Crear / Actualizar Usuario</button>
+  </form>
+  <a href="../html/home.html"><button type="button">Cerrar</button></a>
+
+  <!-- Lista dinámica de usuarios -->
+  <div id="userList"></div>
+
+  <script src="../javascript/admin.js"></script>
+</body>
+</html>
