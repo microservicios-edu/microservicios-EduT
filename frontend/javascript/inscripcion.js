@@ -1,16 +1,13 @@
-// Función global para inscribir usuario
 async function inscribirUsuario(cursoId) {
-
-  const rutUsuarioAutenticado = JSON.parse(localStorage.getItem('usuario'))?.rut; //obtenemos el rut del alamacenamiento local
+  const rutUsuarioAutenticado = JSON.parse(localStorage.getItem('usuario'))?.rut;
 
   if (!rutUsuarioAutenticado) {
     alert("Usuario no autenticado.");
-    console.log(rutUsuarioAutenticado);
     return;
   }
 
   try {
-    // Obtener los datos del usuario autenticado
+    // Obtener los datos del usuario
     const datosUsuarioResponse = await fetch(`http://localhost:8081/api/v1/usuarios/datos-usuario?rut=${rutUsuarioAutenticado}`);
     const datosUsuario = await datosUsuarioResponse.json();
 
@@ -25,18 +22,73 @@ async function inscribirUsuario(cursoId) {
       cursoId: cursoId
     };
 
-    // Enviar datos al microservicio de matrículas
-    const response = await fetch('http://localhost:8082/api/v1/matricula', {
+    // Registrar matrícula
+    const matriculaResponse = await fetch('http://localhost:8082/api/v1/matricula', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(matricula)
     });
 
-    if (response.ok) {
-      alert("¡Inscripción exitosa!");
-    } else {
+    if (!matriculaResponse.ok) {
       alert("Error al inscribirse.");
+      return;
     }
+
+    // Registrar pago
+    const pago = {
+      usuario: datosUsuario.rut,
+      monto: 50000,
+      fechaPago: new Date().toISOString().split("T")[0]
+    };
+
+    const pagoResponse = await fetch('http://localhost:8083/api/v1/pagos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(pago)
+    });
+
+    if (pagoResponse.ok) {
+      alert("¡Inscripción y pago realizados exitosamente!");
+    } else {
+      alert("Inscripción realizada, pero hubo un error al registrar el pago.");
+    }
+
+    // Esperamos respuesta como string (según tu backend actual)
+    const pagoMensaje = await pagoResponse.text();
+    alert(pagoMensaje);
+
+    // OPCIONAL: buscar el último pago por usuario para obtener el ID
+    const pagosUsuarioResp = await fetch(`http://localhost:8083/api/v1/pagos`);
+    const listaPagos = await pagosUsuarioResp.json();
+
+    const ultimoPago = listaPagos
+      .filter(p => p.usuario === datosUsuario.rut && p.fechaPago === fechaPago && p.monto === monto)
+      .sort((a, b) => b.id - a.id)[0]; // Último por ID
+
+    if (!ultimoPago || !ultimoPago.id) {
+      alert("Pago realizado, pero no se pudo obtener su ID para generar notificación.");
+      return;
+    }
+
+    // Crear notificación asociada
+    const notificacion = {
+      mensaje: `Pago exitoso del curso ${cursoId} por parte de ${datosUsuario.nombre}`,
+      fechaEnvio: fechaPago,
+      pagoId: ultimoPago.id
+    };
+
+    const notificacionResponse = await fetch('http://localhost:8083/api/v1/notificaciones', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(notificacion)
+    });
+
+    if (notificacionResponse.ok) {
+      alert("¡Pago y notificación registrados exitosamente!");
+    } else {
+      alert("Pago realizado, pero error al registrar notificación.");
+    }
+
   } catch (error) {
     console.error("Error en la inscripción:", error);
     alert("Error al conectarse con el servidor.");

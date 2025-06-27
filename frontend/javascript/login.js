@@ -2,7 +2,6 @@
 let rut = document.getElementById('rut');
 let clave = document.getElementById('clave');
 
-
   document.getElementById('loginForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     const rut = document.getElementById('rut').value;

@@ -74,3 +74,42 @@
   }
   
   /* Desarrollo de estilos */
+  /* Centrado del contenido principal */
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: var(--spacing-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Alto de pantalla completo */
+}
+
+/* Contenedor principal de la página */
+.container {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border: 2px solid var(--color-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Títulos centrados y estilizados */
+h1, h2, h3 {
+  text-align: center;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+
+/* Estilos generales para párrafos */
+p {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+}
+
