@@ -17,7 +17,6 @@ let clave = document.getElementById('clave');
         if (data.message == "Autenticación exitosa") {
           alert(data.message);
           console.log("Usuario autenticado:", data);
-          console.log("Datos del usuario:", data);
 
           localStorage.setItem('usuario', JSON.stringify(data));
 

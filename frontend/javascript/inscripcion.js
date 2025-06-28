@@ -97,12 +97,23 @@ async function inscribirUsuario(cursoId) {
 
 // Al cargar el DOM, obtener y renderizar los cursos
 document.addEventListener("DOMContentLoaded", async () => {
+  const container = document.getElementById('cursosContainer');
+  container.innerHTML = '<img src="../../public/gif/loading.gif" alt="Cargando...">'; // Mostrar gif de carga
+
   try {
+    // Se espera 4 segundos antes de hacer la solicitud. Esto es para que se pueda apreciar el GIF de loading
+    await new Promise(resolve => setTimeout(resolve, 3500));
+
     const response = await fetch('http://localhost:8084/api/v1/cursos/disponibles');
     const cursos = await response.json();
 
-    const container = document.getElementById('cursosContainer');
-    container.innerHTML = ''; // Limpiar contenedor
+    container.innerHTML = ''; // Limpiar loading gif
+
+    if (cursos.length === 0) {
+      container.innerHTML = `<p>No hay cursos disponibles.</p>
+                            <button class="btn btn-secondary" onclick="window.location.href='../html/homePageEstudiante.html'">Volver</button>`;
+      return;
+    }
 
     cursos.forEach(curso => {
       const cursoDiv = document.createElement('div');
@@ -112,7 +123,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <h3>${curso.nombre}</h3>
         <p>${curso.descripcion}</p>
         <button data-id="${curso.id}">Inscribirse</button>
-        <button class="btn btn-secondary" onclick="window.location.href='../html/home.html'">Volver</button>
+        <button class="btn btn-secondary" onclick="window.location.href='../html/homePageEstudiante.html'">Volver al Home</button>
       `;
 
       // Buscar el botón y agregarle el evento
