@@ -114,6 +114,7 @@ public class UsuarioController {
         response.put("message", "Autenticación exitosa");
         response.put("tipoUsuario", usuario.getTipoUsuario());
         response.put("rut", usuario.getRut());
+        response.put("nombre", usuario.getNombre());
         return response;
     }
 
@@ -122,7 +123,7 @@ public class UsuarioController {
     public Map<String, String> obtenerDatosUsuario(@RequestParam String rut) {
         Usuario usuario = usuarioService.getUsuarioPorRut(rut);
         Map<String, String> response = new HashMap<>();
-
+        
         if (usuario == null) {
             response.put("message", "Usuario no encontrado");
             return response;
