@@ -40,7 +40,7 @@ async function botonSoporte() {
         if (responseSoporte.ok) {
             const data = await responseSoporte.json();
             console.log(data.mensaje);
-            alert("Solicitud de soporte enviada con el siguiente mensaje: " + data.mensaje + "un agente de soporte se pondrá en contacto contigo pronto.");
+            alert("Solicitud de soporte enviada con el siguiente mensaje: " + data.mensaje + ". Un agente de soporte se pondrá en contacto contigo pronto.");
         } else {
             alert("Error al enviar la solicitud de soporte");
         }
