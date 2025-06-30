@@ -1,4 +1,4 @@
-package com.example.edutech.config;
+package com.recursos_educativos.cl.recursos_educativos.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +14,13 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/v1/**")
-                        .allowedOrigins("*") // !!! TEMPORARY FOR DEBUGGING !!!
-                        .allowedMethods("GET", "POST", "PUT", "DELETE");
+                        .allowedOriginPatterns("*") // permite cualquier origen
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
+                        .allowCredentials(false); // desactiva credenciales si usas "*"
+                // Usa false si no manejas cookies/autenticación
             }
         };
     }
 }
+

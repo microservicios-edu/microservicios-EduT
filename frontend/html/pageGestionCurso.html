@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Cursos</title>
+    <link rel="stylesheet" href="../css/pageGestionCurso.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Cursos</h1>
+        <nav class="action-nav"> <a href="../html/homeAdministrador.html" class="nav-button">Volver al Inicio</a>
+        </nav>
+        <form id="courseForm">
+            <input type="text" id="courseName" placeholder="Nombre del Curso" required>
+            <input type="text" id="courseDescription" placeholder="Descripción" required>
+            <input type="number" id="totalSlots" placeholder="Cupos Totales" required>
+            <input type="number" id="availableSlots" placeholder="Cupos Disponibles" required>
+            <input type="text" id="category" placeholder="Categoría" required>
+            <button type="submit">Agregar Curso</button>
+        </form>
+        <input type="text" id="searchInput" placeholder="Buscar por título o autor">
+        <table id="courseTable">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Cupos Totales</th>
+                    <th>Cupos Disponibles</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="courseList"></tbody>
+        </table>
+    </div>
+    <script src="../javascript/pageGestionCurso.js"></script>
+</body>
+</html>

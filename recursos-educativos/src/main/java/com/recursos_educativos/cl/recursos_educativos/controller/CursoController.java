@@ -20,7 +20,6 @@ import com.recursos_educativos.cl.recursos_educativos.service.CursoService;
 
 @RestController
 @RequestMapping("/api/v1/cursos")
-@CrossOrigin(origins = "*") // Habilita peticiones desde el frontend
 public class CursoController {
 
     @Autowired
