@@ -115,23 +115,28 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    cursos.forEach(curso => {
-      const cursoDiv = document.createElement('div');
-      cursoDiv.classList.add('curso');
-      console.log("Curso recibido:", curso);
-      cursoDiv.innerHTML = `
+    cursos.forEach((curso, index) => {
+    const cursoDiv = document.createElement('div');
+    cursoDiv.classList.add('curso');
+    console.log("Curso recibido:", curso);
+    cursoDiv.innerHTML = `
         <h3>${curso.nombre}</h3>
         <p>${curso.descripcion}</p>
         <button data-id="${curso.id}">Inscribirse</button>
         <button class="btn btn-secondary" onclick="window.location.href='../html/homePageEstudiante.html'">Volver al Home</button>
-      `;
+    `;
 
-      // Buscar el botón y agregarle el evento
-      const boton = cursoDiv.querySelector("button");
-      boton.addEventListener("click", () => inscribirUsuario(curso.id));
+    // Buscar el botón y agregarle el evento
+    const boton = cursoDiv.querySelector("button");
+    boton.addEventListener("click", () => inscribirUsuario(curso.id));
 
-      container.appendChild(cursoDiv);
-    });
+    container.appendChild(cursoDiv);
+
+    // Add fade-in class after a small delay for a staggered effect
+    setTimeout(() => {
+        cursoDiv.classList.add('fade-in');
+    }, index * 100); // 100ms delay for each subsequent card
+});
   } catch (error) {
     alert("Error al cargar los cursos. Volverá a la página de inicio.");
     window.location.href = "../html/homePageEstudiante.html"; // Redirigir a la página de inicio del estudiante

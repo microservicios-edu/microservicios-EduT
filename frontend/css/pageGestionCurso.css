@@ -1,0 +1,317 @@
+/* Fuente futurista opcional (Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* --- Variables --- */
+:root {
+    /* Colores para la tonalidad azul celeste */
+    --color-background-dark: #0A192F; /* Fondo muy oscuro, azulado */
+    --color-surface-dark: #1F2F4F; /* Superficie más oscura para elementos, azul-gris */
+    --color-card-gradient-start: #1A2A40; /* Inicio de degradado para contenedores */
+    --color-card-gradient-end: #121E2F; /* Fin de degradado para contenedores */
+
+    --color-primary-blue: #00BFFF; /* Azul cielo para elementos principales */
+    --color-secondary-blue: #87CEEB; /* Azul celeste para acentos y textos */
+    --color-text-light: #E0F2F7; /* Texto blanco-azulado claro */
+    --color-text-dark: #0A192F; /* Texto oscuro para contrastar con fondos claros */
+
+    /* Sombras y brillos neón */
+    --shadow-blue-sm: 0 0 10px rgba(0, 191, 255, 0.4); /* Sombra azul pequeña */
+    --shadow-blue-md: 0 0 20px rgba(0, 191, 255, 0.6), 0 0 30px rgba(135, 206, 235, 0.3); /* Sombra azul media */
+    --shadow-blue-lg: 0 0 30px rgba(0, 191, 255, 0.8), 0 0 50px rgba(135, 206, 235, 0.5); /* Sombra azul grande */
+
+    /* Tipografía */
+    --font-primary: 'Orbitron', sans-serif;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-xxl: 2.5rem; /* Para títulos principales */
+
+    /* Espaciado */
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+}
+
+/* --- General Body Styles --- */
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea al inicio para dejar espacio en la parte superior */
+    min-height: 100vh;
+    overflow-x: hidden; /* Evita desbordamiento horizontal */
+    position: relative;
+}
+
+/* Background Grid Effect */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(to right, rgba(0, 191, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 191, 255, 0.07) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* --- Container --- */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: var(--spacing-xxl) auto; /* Margen superior e inferior para centrar verticalmente mejor */
+    background: linear-gradient(145deg, var(--color-card-gradient-start), var(--color-card-gradient-end));
+    padding: var(--spacing-xxl) var(--spacing-xl);
+    border-radius: 15px;
+    box-shadow: var(--shadow-blue-lg); /* Sombra grande para destacar */
+    border: 1px solid var(--color-primary-blue);
+    text-align: center;
+    position: relative; /* Para posibles elementos internos posicionados */
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Headings --- */
+h1 {
+    color: var(--color-primary-blue);
+    font-size: var(--font-size-xxl);
+    margin-bottom: var(--spacing-xl);
+    text-shadow: 0 0 10px var(--color-primary-blue);
+    letter-spacing: 1.5px;
+}
+
+/* --- Form Styles --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md); /* Espacio entre los campos del formulario */
+    margin-bottom: var(--spacing-xl);
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: var(--spacing-md);
+    background-color: var(--color-surface-dark);
+    color: var(--color-text-light);
+    border: 1px solid var(--color-primary-blue);
+    border-radius: 8px;
+    outline: none;
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    font-size: var(--font-size-base);
+}
+
+input[type="text"]::placeholder,
+input[type="number"]::placeholder {
+    color: var(--color-text-muted);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    box-shadow: var(--shadow-blue-sm);
+    border-color: var(--color-secondary-blue);
+}
+
+/* --- Buttons --- */
+button {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--color-primary-blue);
+    color: var(--color-text-dark); /* Texto oscuro para contraste en botón claro */
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: var(--spacing-sm); /* Espacio con el elemento anterior */
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    font-size: var(--font-size-lg);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-blue-sm); /* Sombra inicial para el botón */
+}
+
+button:hover {
+    background-color: var(--color-secondary-blue);
+    box-shadow: var(--shadow-blue-md); /* Sombra más grande al pasar el mouse */
+    transform: translateY(-2px);
+}
+
+/* Specific button styles (Editar, Eliminar) */
+.edit-button, .delete-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-transform: none; /* No uppercase for table actions */
+}
+
+.edit-button {
+    background-color: #0077cc; /* Azul más oscuro para editar */
+    color: white;
+    box-shadow: 0 0 5px rgba(0, 119, 204, 0.5);
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 119, 204, 0.7);
+}
+
+.delete-button {
+    background-color: #cc3333; /* Rojo para eliminar */
+    color: white;
+    box-shadow: 0 0 5px rgba(204, 51, 51, 0.5);
+}
+
+.delete-button:hover {
+    background-color: #b30000;
+    box-shadow: 0 0 10px rgba(204, 51, 51, 0.7);
+}
+
+/* --- Search Input --- */
+#searchInput {
+    width: calc(100% - 2 * var(--spacing-md)); /* Ajusta el ancho para el padding */
+    padding: var(--spacing-md);
+    margin: var(--spacing-xl) 0; /* Margen arriba y abajo */
+    border-radius: 8px;
+    border: 1px solid var(--color-primary-blue);
+    background-color: var(--color-surface-dark);
+    color: var(--color-text-light);
+    outline: none;
+    font-size: var(--font-size-base);
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+#searchInput:focus {
+    box-shadow: var(--shadow-blue-sm);
+    border-color: var(--color-secondary-blue);
+}
+
+/* --- Table Styles --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--spacing-xl);
+    background-color: var(--color-surface-dark);
+    border-radius: 10px;
+    overflow: hidden; /* Asegura que los bordes redondeados se apliquen al contenido */
+    box-shadow: var(--shadow-blue-sm); /* Sombra sutil para la tabla */
+}
+
+th, td {
+    padding: var(--spacing-md);
+    text-align: left;
+    border-bottom: 1px solid rgba(135, 206, 235, 0.2); /* Borde de neón sutil */
+    color: var(--color-text-light);
+}
+
+th {
+    background-color: var(--color-primary-blue);
+    color: var(--color-text-dark); /* Texto oscuro en encabezados claros */
+    text-shadow: none; /* No hay sombra en el texto de los encabezados */
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: var(--font-size-base);
+    letter-spacing: 0.5px;
+}
+
+tr:hover {
+    background-color: rgba(0, 191, 255, 0.08); /* Fondo de hover azul transparente */
+    transition: background-color 0.3s;
+}
+
+/* --- New Navigation for "Volver al Inicio" --- */
+.action-nav {
+    display: flex;
+    justify-content: flex-start; /* Alinea el botón a la izquierda */
+    width: 100%; /* Ocupa el ancho completo del contenedor */
+    margin-bottom: var(--spacing-lg); /* Espacio entre el botón y el título */
+    padding-left: var(--spacing-md); /* Pequeño padding si el container tiene alguno */
+    box-sizing: border-box; /* Incluye padding en el cálculo del ancho */
+}
+
+.action-nav .nav-button {
+    background-color: var(--color-surface-dark); /* Fondo oscuro como otros elementos */
+    color: var(--color-primary-blue); /* Texto azul celeste */
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-primary-blue);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-base);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    box-shadow: var(--shadow-blue-sm); /* Sombra inicial sutil */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.action-nav .nav-button:hover {
+    background-color: rgba(0, 191, 255, 0.15); /* Fondo ligeramente más oscuro y transparente */
+    box-shadow: var(--shadow-blue-md); /* Brillo más intenso al pasar el mouse */
+    transform: translateY(-2px);
+    text-shadow: 0 0 5px var(--color-primary-blue); /* Brillo en el texto */
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-xl) var(--spacing-lg);
+        margin: var(--spacing-xl) auto;
+    }
+
+    h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    th, td {
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+
+    .edit-button, .delete-button {
+        padding: 6px 10px;
+        font-size: var(--font-size-sm);
+    }
+
+    #searchInput, input[type="text"], input[type="number"], button {
+        font-size: var(--font-size-sm);
+        padding: 10px;
+    }
+
+    .action-nav {
+        justify-content: center; /* Centra el botón en móviles */
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+        padding: var(--spacing-lg) var(--spacing-md);
+        margin: var(--spacing-lg) auto;
+    }
+
+    h1 {
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    form {
+        gap: var(--spacing-sm);
+    }
+}
