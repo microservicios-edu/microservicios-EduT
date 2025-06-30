@@ -1,0 +1,449 @@
+/* Import Google Fonts for Orbitron */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* --- Variables --- */
+:root {
+    /* Color Variables - Adjusted for Sky Blue Theme */
+    --color-primary: #87CEEB;        /* Sky Blue for primary actions/highlights */
+    --color-secondary: #00BFFF;      /* Deep Sky Blue for secondary highlights */
+    --color-accent-glow: rgba(135, 206, 235, 0.3); /* Transparent sky blue for glow effects */
+    --color-background-dark: #0A192F; /* Even darker blue-ish background */
+    --color-surface-dark: #1F2F4F;   /* Darker blue-grey surface for elements */
+    --color-card-gradient-start: #1A2A40; /* Gradient start for containers/cards */
+    --color-card-gradient-end: #121E2F;   /* Gradient end for containers/cards */
+    --color-text-light: #E0F2F7;    /* Light blue-white text for contrast */
+    --color-text-dark: #0A192F;     /* Text dark for contrast on light backgrounds (e.g., buttons) */
+    --color-text-muted: #A0B0C0;    /* Muted grey-blue text for placeholders */
+    --color-error: #FF6347;         /* Tomato for errors/alerts */
+
+    /* Spacing and Sizing Variables */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    --container-max-width: 900px;
+}
+
+/* --- Typography Variables --- */
+:root {
+    --font-primary: 'Orbitron', sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.15rem; /* Slightly smaller for forms */
+    --font-size-xl: 1.4rem;
+    --font-size-xxl: 2rem; /* For main headings */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+}
+
+/* --- Transitions and Shadows Variables --- */
+:root {
+    --transition-fast: 0.2s ease-in-out;
+    --transition-medium: 0.4s ease-in-out;
+    --shadow-neon-sm: 0 0 8px var(--color-primary), 0 0 15px var(--color-accent-glow);
+    --shadow-neon-md: 0 0 15px var(--color-primary), 0 0 30px var(--color-accent-glow);
+}
+
+/* --- General Body Styles --- */
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background grid/pattern */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(to right, rgba(135, 206, 235, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(135, 206, 235, 0.08) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* --- Page Container --- */
+.container {
+    width: 90%;
+    max-width: var(--container-max-width);
+    margin: var(--spacing-xxl) auto; /* Top margin for heading, auto for horizontal centering */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: var(--spacing-xxl); /* Space at the bottom of the page */
+}
+
+
+/* --- Page Title Styling --- */
+h1 {
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-xxl);
+    color: var(--color-primary);
+    font-size: var(--font-size-xxl);
+    text-shadow: 0 0 8px var(--color-primary);
+    letter-spacing: 1px;
+    width: 100%; /* Take full width of container */
+}
+
+/* --- Form Styling --- */
+#userForm {
+    background: linear-gradient(145deg, var(--color-card-gradient-start), var(--color-card-gradient-end));
+    padding: var(--spacing-xl) var(--spacing-xxl);
+    border-radius: 15px;
+    box-shadow: var(--shadow-neon-sm);
+    border: 1px solid rgba(135, 206, 235, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md); /* Space between form groups */
+    width: 100%; /* Take full width of container */
+    max-width: 600px; /* Max width for the form */
+    margin-bottom: var(--spacing-xxl); /* Space before user list */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.form-group label {
+    font-size: var(--font-size-sm);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#userForm input[type="text"],
+#userForm input[type="password"],
+#userForm select {
+    width: 100%; /* Full width within form-group */
+    padding: var(--spacing-md);
+    background-color: var(--color-background-dark); /* Dark input background */
+    border: 1px solid var(--color-primary); /* Sky blue border */
+    border-radius: 8px;
+    color: var(--color-text-light); /* Light text in input */
+    font-family: var(--font-primary);
+    font-size: var(--font-size-lg);
+    box-shadow: inset 0 0 5px rgba(0, 191, 255, 0.2); /* Subtle inner glow */
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+#userForm input::placeholder {
+    color: var(--color-text-muted); /* Muted placeholder text */
+}
+
+#userForm input:focus,
+#userForm select:focus {
+    border-color: var(--color-secondary); /* Deeper blue on focus */
+    box-shadow: inset 0 0 8px rgba(0, 191, 255, 0.4), 0 0 10px rgba(135, 206, 235, 0.6); /* Stronger glow */
+    outline: none; /* Remove default outline */
+}
+
+#userForm select option {
+    background-color: var(--color-background-dark); /* Dark background for dropdown options */
+    color: var(--color-text-light);
+}
+
+/* --- Buttons Styling (General) --- */
+.btn-primary,
+.btn-secondary {
+    display: block; /* Make buttons take full width */
+    width: 100%; /* Full width within their parent */
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-lg);
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+    outline: none;
+    text-align: center;
+}
+
+/* Primary Button (Crear/Actualizar) */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-text-dark);
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 0 10px rgba(135, 206, 235, 0.6);
+    margin-top: var(--spacing-md); /* Space from last form group */
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secondary);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+/* Secondary Button (Volver al Home) */
+.btn-secondary {
+    background-color: var(--color-surface-dark);
+    color: var(--color-primary);
+    border: 1px solid rgba(135, 206, 235, 0.5);
+    box-shadow: 0 0 5px rgba(135, 206, 235, 0.3);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(135, 206, 235, 0.15);
+    box-shadow: 0 0 10px rgba(135, 206, 235, 0.6);
+    transform: translateY(-2px);
+}
+
+/* Specific styling for the "Volver al Home" button outside the form */
+.btn-home {
+    margin-top: var(--spacing-xl); /* More space from form */
+    max-width: 600px; /* Match form width */
+    width: 100%; /* Take full width of container */
+    margin-bottom: var(--spacing-xxl);
+}
+
+/* --- User List Styling --- */
+#userList {
+    width: 100%; /* Take full width of container */
+    max-width: var(--container-max-width);
+    margin-top: var(--spacing-md); /* Space from "Volver al Home" */
+    display: flex;
+    flex-direction: column; /* Stack user cards vertically */
+    gap: var(--spacing-md); /* Space between user cards */
+}
+
+.usuario {
+    background: linear-gradient(145deg, var(--color-card-gradient-start), var(--color-card-gradient-end));
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-radius: 10px;
+    box-shadow: var(--shadow-neon-sm);
+    border: 1px solid rgba(135, 206, 235, 0.3);
+    display: flex;
+    flex-wrap: wrap; /* Allow content to wrap */
+    align-items: center;
+    justify-content: space-between; /* Space out details and buttons */
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+    opacity: 0; /* Start hidden for fade-in effect */
+    transform: translateY(20px); /* Start slightly below for slide-up effect */
+}
+
+.usuario.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.usuario:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-neon-md);
+}
+
+.user-details {
+    flex-grow: 1; /* Allows details to take available space */
+    margin-right: var(--spacing-md);
+}
+
+.user-details p {
+    margin: var(--spacing-xs) 0; /* Smaller vertical margin for paragraphs */
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+}
+
+.user-details p strong {
+    color: var(--color-secondary); /* Deep sky blue for labels */
+    font-weight: var(--font-weight-bold);
+    margin-right: var(--spacing-xs);
+}
+
+/* Hide the password display */
+.password-display {
+    display: none;
+}
+
+.user-actions {
+    display: flex;
+    gap: var(--spacing-sm); /* Space between action buttons */
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    margin-top: var(--spacing-md); /* Space actions from details on smaller screens */
+    width: 100%; /* Take full width on smaller screens */
+    justify-content: flex-end; /* Align actions to the right */
+}
+
+/* Adjust button width for user actions on larger screens */
+@media (min-width: 769px) {
+    .user-actions {
+        width: auto; /* Allow buttons to take only needed width */
+        margin-top: 0; /* No top margin on larger screens */
+    }
+}
+
+/* --- Action Buttons (Editar/Eliminar) within user cards --- */
+.usuario .editar,
+.usuario .eliminar {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+    outline: none;
+    flex-grow: 1; /* Allow buttons to grow to fill space */
+}
+
+.usuario .editar {
+    background-color: var(--color-surface-dark);
+    color: var(--color-primary);
+    border: 1px solid rgba(135, 206, 235, 0.6);
+    box-shadow: 0 0 5px rgba(135, 206, 235, 0.3);
+}
+
+.usuario .editar:hover {
+    background-color: rgba(135, 206, 235, 0.15);
+    box-shadow: 0 0 10px rgba(135, 206, 235, 0.6);
+    transform: translateY(-2px);
+}
+
+.usuario .eliminar {
+    background-color: var(--color-error);
+    color: var(--color-text-light);
+    border: 1px solid var(--color-error);
+    box-shadow: 0 0 8px rgba(255, 99, 71, 0.5);
+}
+
+.usuario .eliminar:hover {
+    background-color: darken(var(--color-error), 10%); /* This won't work directly in CSS, but conceptually is darker */
+    box-shadow: 0 0 12px rgba(255, 99, 71, 0.8);
+    transform: translateY(-2px);
+}
+
+/* --- Message Container (No users) --- */
+.message-container {
+    background: linear-gradient(145deg, var(--color-card-gradient-start), var(--color-card-gradient-end));
+    padding: var(--spacing-xl);
+    border-radius: 15px;
+    box-shadow: var(--shadow-neon-sm);
+    border: 1px solid rgba(135, 206, 235, 0.4);
+    text-align: center;
+    width: 100%;
+    max-width: 500px; /* Limit width for the message box */
+    margin: var(--spacing-xxl) auto; /* Center it */
+}
+
+.message-container p {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-lg);
+        margin-top: var(--spacing-xl);
+    }
+
+    h1 {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    #userForm {
+        padding: var(--spacing-lg);
+        gap: var(--spacing-sm);
+    }
+
+    .form-group label {
+        font-size: var(--font-size-sm);
+    }
+
+    #userForm input, #userForm select,
+    .btn-primary,
+    .btn-secondary {
+        font-size: var(--font-size-base);
+        padding: var(--spacing-sm);
+    }
+
+    .usuario {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: flex-start; /* Align text to start */
+        padding: var(--spacing-md);
+    }
+
+    .user-details {
+        margin-right: 0; /* Remove right margin */
+        width: 100%; /* Take full width */
+    }
+
+    .user-details p {
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .user-actions {
+        flex-direction: row; /* Keep buttons in a row */
+        justify-content: center; /* Center buttons */
+        gap: var(--spacing-sm);
+        margin-top: var(--spacing-md); /* Space actions from details */
+        width: 100%; /* Take full width */
+    }
+
+    .usuario .editar,
+    .usuario .eliminar {
+        flex-grow: 1; /* Distribute space evenly */
+        max-width: calc(50% - var(--spacing-sm) / 2); /* Max half width minus gap */
+    }
+
+    .btn-home {
+        margin-top: var(--spacing-xl);
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    #userForm {
+        padding: var(--spacing-md);
+    }
+
+    .usuario {
+        padding: var(--spacing-sm);
+    }
+
+    .user-details p, .user-details p strong {
+        font-size: var(--font-size-sm);
+    }
+
+    .usuario .editar,
+    .usuario .eliminar {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-xs);
+    }
+
+    .message-container {
+        padding: var(--spacing-lg);
+    }
+
+    .message-container p {
+        font-size: var(--font-size-lg);
+    }
+}

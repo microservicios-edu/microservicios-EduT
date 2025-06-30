@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/administrador.css" />
-  <title>Gestión de Usuarios</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/pageGestionUsuario.css" />
+    <title>Gestión de Usuarios - Edutech</title>
 </head>
 <body>
-  <!-- RF2.1: Crear, actualizar, desactivar y eliminar cuentas -->
-  
-  <h1>Gestión de Usuarios</h1>
+    <div class="container">
+        <h1>Gestión de Usuarios</h1>
 
-  <form id="userForm">
-    <input type="text" id="nombre" placeholder="Nombre" required />
-    <input type="text" id="rut" placeholder="RUT" required />
-    <select id="tipoUsuario" required>
-      <option value="">Tipo de usuario</option>
-      <option value="estudiante">estudiante</option>
-      <option value="docente">docente</option>
-      <option value="gerente">gerente</option>
-      <option value="administrador">administrador</option>
-      <option value="soporte">soporte</option>
-    </select>    
-    <input type="text" id="password" placeholder="Clave" required />
-    <button type="submit">Crear / Actualizar Usuario</button>
-  </form>
-  <a href="../html/homeAdministrador.html"><button type="button">Volver al Home</button></a>
+        <form id="userForm">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" placeholder="Ingrese nombre" required />
+            </div>
+            <div class="form-group">
+                <label for="rut">RUT:</label>
+                <input type="text" id="rut" placeholder="Ingrese RUT (ej: 12345678-9)" required />
+            </div>
+            <div class="form-group">
+                <label for="tipoUsuario">Tipo de Usuario:</label>
+                <select id="tipoUsuario" required>
+                    <option value="">Seleccione tipo</option>
+                    <option value="estudiante">Estudiante</option>
+                    <option value="docente">Docente</option>
+                    <option value="gerente">Gerente</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="soporte">Soporte</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="password">Clave:</label>
+                <input type="password" id="password" placeholder="Ingrese clave" required />
+            </div>
+            <button type="submit" class="btn-primary">Crear / Actualizar Usuario</button>
+        </form>
 
-  <!-- Lista dinámica de usuarios -->
-  <div id="userList"></div>
+        <a href="../html/homeAdministrador.html">
+            <button type="button" class="btn-secondary btn-home">Volver al Home</button>
+        </a>
 
-  <script src="../javascript/pageGestionUsuario.js"></script>
+        <div id="userList">
+            </div>
+    </div>
+
+    <script src="../javascript/pageGestionUsuario.js"></script>
 </body>
 </html>

@@ -12,16 +12,14 @@
     --color-card-gradient-start: #1A2A40; /* Gradient start for containers */
     --color-card-gradient-end: #121E2F;   /* Gradient end for containers */
     --color-text-light: #E0F2F7;    /* Light blue-white text for contrast */
-    --color-text-dark: #0A192F;     /* Text dark for contrast on light backgrounds (e.g., buttons) */
     --color-text-muted: #A0B0C0;    /* Muted grey-blue text for placeholders */
 
-    /* Spacing and Sizing Variables */
+    /* Spacing and Sizing Variables (can remain similar or adjust as needed) */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
     --spacing-lg: 1.5rem;
     --spacing-xl: 2rem;
-    --spacing-xxl: 3rem;
     --container-width: 1200px;
 
     /* Typography Variables - Using Orbitron */
@@ -30,7 +28,7 @@
     --font-size-base: 1rem;
     --font-size-lg: 1.25rem;
     --font-size-xl: 1.5rem;
-    --font-size-xxl: 2rem; /* For main headings */
+    --font-size-xxl: 2rem;
     --font-weight-light: 300;
     --font-weight-regular: 400;
     --font-weight-bold: 700;
@@ -40,9 +38,10 @@
     --transition-medium: 0.4s ease-in-out;
     --shadow-neon-sm: 0 0 8px var(--color-primary), 0 0 15px var(--color-accent-glow);
     --shadow-neon-md: 0 0 15px var(--color-primary), 0 0 30px var(--color-accent-glow);
+    --shadow-neon-lg: 0 0 20px var(--color-primary), 0 0 40px var(--color-secondary);
 }
 
-/* --- General Body Styles --- */
+/* General Body Styles - Futuristic Dark Theme */
 body {
     font-family: var(--font-primary);
     background-color: var(--color-background-dark); /* Very dark blue-ish background */
@@ -51,11 +50,11 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align content to the top */
-    align-items: center; /* Center horizontally */
+    justify-content: flex-start;
+    align-items: center;
     min-height: 100vh;
     box-sizing: border-box;
-    overflow: hidden; /* Hide potential scrollbars from background effects */
+    overflow: hidden;
     position: relative;
 }
 
@@ -75,107 +74,99 @@ body::before {
     z-index: -1;
 }
 
-/* --- Page Title Styling --- */
+/* Container for main content (if used) */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 30px auto;
+    background: linear-gradient(145deg, var(--color-card-gradient-start), var(--color-card-gradient-end));
+    padding: var(--spacing-xl);
+    border-radius: 15px;
+    box-shadow: 0 0 20px var(--color-secondary), 0 0 40px var(--color-accent-glow);
+    border: 1px solid var(--color-primary); /* Sky blue border */
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Animation for container fade in */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Page Title Styling - Bright and prominent */
 h1 {
     text-align: center;
     font-weight: var(--font-weight-bold);
-    margin-bottom: var(--spacing-xxl); /* More space below the main title */
+    margin-bottom: var(--spacing-xl);
     color: var(--color-primary); /* Sky blue primary color */
     font-size: var(--font-size-xxl);
     text-shadow: 0 0 8px var(--color-primary); /* Sky blue glow effect */
-    padding-top: var(--spacing-xxl); /* Add some padding at the top for spacing */
-    letter-spacing: 1px; /* Spaced out for futuristic look */
+    padding-top: var(--spacing-xl);
+    letter-spacing: 1px;
 }
 
-/* --- Navigation Bar Styling --- */
+/* Navigation Bar Styling */
 nav {
     background-color: var(--color-surface-dark); /* Dark blue-grey surface for nav */
     padding: var(--spacing-md) var(--spacing-lg);
-    border-radius: 10px; /* Slightly more defined corners */
-    box-shadow: var(--shadow-neon-sm); /* Subtle sky blue neon shadow for depth */
-    display: flex; /* Use flexbox for spacing links and buttons */
-    gap: var(--spacing-lg); /* Space between navigation items */
-    margin-top: var(--spacing-md); /* Space below the title */
-    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-    justify-content: center; /* Center items if they wrap */
+    border-radius: 10px;
+    box-shadow: var(--shadow-neon-sm); /* Subtle sky blue neon shadow */
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+    flex-wrap: wrap;
+    justify-content: center;
     border: 1px solid rgba(135, 206, 235, 0.3); /* Subtle sky blue neon border */
 }
 
-/* --- Link Styles (for <a> tags in nav) --- */
 nav a {
-    text-decoration: none; /* Remove underline from links */
+    text-decoration: none;
     color: var(--color-primary); /* Sky blue for links */
-    font-size: var(--font-size-lg); /* Larger font size for navigation links */
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-regular);
-    padding: var(--spacing-sm) var(--spacing-md); /* Padding around each link */
+    padding: var(--spacing-sm) var(--spacing-md);
     transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-    border-radius: 8px; /* Consistent rounded corners on hover */
-    text-transform: uppercase; /* Make links uppercase for futuristic feel */
+    border-radius: 8px;
+    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 nav a:hover {
     background-color: rgba(135, 206, 235, 0.1); /* Light sky blue background on hover */
     color: var(--color-primary);
-    transform: translateY(-2px); /* Slight lift effect on hover */
+    transform: translateY(-2px);
     box-shadow: var(--shadow-neon-sm); /* Stronger sky blue neon shadow on hover */
     text-shadow: 0 0 5px var(--color-primary); /* Text glow on hover */
 }
 
-/* --- Button Styles (for <button> tags in nav) --- */
-nav button {
-    /* Base button styles */
-    padding: var(--spacing-sm) var(--spacing-md);
-    background-color: var(--color-surface-dark); /* Dark surface for button */
-    color: var(--color-primary); /* Sky blue text for button */
-    font-family: var(--font-primary); /* Ensure Orbitron for button */
-    font-weight: var(--font-weight-regular);
-    font-size: var(--font-size-lg);
-    border: 1px solid var(--color-primary); /* Sky blue border */
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: var(--shadow-neon-sm); /* Subtle neon shadow */
-    outline: none; /* Remove default outline */
-}
-
-nav button:hover {
-    background-color: rgba(135, 206, 235, 0.1); /* Light sky blue background on hover */
-    color: var(--color-primary);
-    transform: translateY(-2px); /* Slight lift effect on hover */
-    box-shadow: var(--shadow-neon-md); /* Stronger neon shadow on hover */
-    text-shadow: 0 0 5px var(--color-primary); /* Text glow on hover */
-}
-
-/* --- Responsive Adjustments --- */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     h1 {
         font-size: var(--font-size-xl);
         padding-top: var(--spacing-lg);
-        margin-bottom: var(--spacing-xl);
     }
 
     nav {
-        flex-direction: column; /* Stack items vertically on small screens */
+        flex-direction: column;
         gap: var(--spacing-sm);
         padding: var(--spacing-md);
-        width: 90%; /* Occupy more width */
+        width: 90%;
     }
 
-    nav a,
-    nav button {
+    nav a {
         padding: var(--spacing-sm);
         font-size: var(--font-size-base);
-        width: 100%; /* Make items take full width when stacked */
-        box-sizing: border-box; /* Ensure padding is included in width */
     }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: var(--spacing-md);
+    }
+
     h1 {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-lg);
         margin-bottom: var(--spacing-lg);
     }
 }
