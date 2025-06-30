@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "soporte")
@@ -16,9 +17,9 @@ public class Soporte {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String rut;
     private String nombreUsuario;
-    private String correo;
-    private String comentario;
+    private String mensaje;
     private String estado;
-    private String fechaCreacion;
+    private LocalDate fechaCreacion;
 }

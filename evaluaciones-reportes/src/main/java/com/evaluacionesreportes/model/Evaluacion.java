@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Entity
 @Data
+@Table(name = "evaluaciones")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Evaluacion {

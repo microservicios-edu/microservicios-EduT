@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Autenticación</title>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+  <!-- RF.1.1: Autenticación con RUT y clave ....-->
+
+  <h1>Iniciar la sesión</h1>
+
+<form class="login-form" id="loginForm">
+  <div class="form-group">
+    <input type="text" id="rut" name="rut" placeholder="RUT" required />
+    <input type="password" id="clave" name="clave" placeholder="Clave" required />
+  </div>
+
+  <div class="form-group">
+    <button type="submit">Ingresar</button>
+    <button type="button" onclick="botonLimpiar()">Limpiar</button>
+  </div>
+
+  <div class="form-links">
+    <p>¿Olvidaste tu contraseña?</p>
+    <button type="button" id="btnNuevaContrasena" onclick="mostrarFormularioContrasena()">Crear Nueva Contraseña</button>
+  </div>
+</form>
+
+<form id="formNuevaContrasena" style="display: none;" class="nueva-forma">
+  <div class="form-group">
+    <input type="text" id="nuevoRut" name="nuevoRut" placeholder="RUT" required />
+    <input type="password" id="nuevaClave" name="nuevaClave" placeholder="Nueva Clave" required />
+  </div>
+  <div class="form-group">
+    <button type="button" onclick="guardarContrasena()">Guardar Contraseña</button>
+    <button type="button" onclick="cerrarFormularioContrasena()">Cerrar</button>
+  </div>
+</form>
+
+
+  <script src="javascript/login.js"></script>
+</body>
+</html>
