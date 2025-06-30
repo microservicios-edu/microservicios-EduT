@@ -1,5 +1,7 @@
 package com.evaluacionesreportes.service;
 
+import com.evaluacionesreportes.client.UsuarioClient;
+import com.evaluacionesreportes.dto.UsuarioDTO;
 import com.evaluacionesreportes.model.Reporte;
 import com.evaluacionesreportes.repository.ReporteRepository;
 import com.evaluacionesreportes.repository.EvaluacionRepository;
@@ -7,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+// ReporteService.java
 @Service
 public class ReporteService {
 
@@ -15,7 +17,7 @@ public class ReporteService {
     private ReporteRepository reporteRepository;
 
     @Autowired
-    private EvaluacionRepository evaluacionRepository;
+    private UsuarioClient usuarioClient;
 
     public List<Reporte> obtenerTodos() {
         return reporteRepository.findAll();
@@ -27,9 +29,16 @@ public class ReporteService {
     }
 
     public Reporte crear(Reporte reporte) {
-        if (evaluacionRepository.count() == 0) {
-            throw new RuntimeException("No se puede crear el reporte porque no hay evaluaciones registradas.");
+        UsuarioDTO usuario = usuarioClient.obtenerUsuarioPorRut(reporte.getRutUsuario()).block();
+
+        if (usuario == null) {
+            throw new RuntimeException("El usuario con RUT " + reporte.getRutUsuario() + " no existe");
         }
+
+        if (!esTipoValido(usuario.getTipoUsuario())) {
+            throw new RuntimeException("Solo usuarios con rol profesor o administrador pueden crear reportes");
+        }
+
         return reporteRepository.save(reporte);
     }
 
@@ -38,6 +47,7 @@ public class ReporteService {
             r.setTitulo(reporteActualizado.getTitulo());
             r.setContenido(reporteActualizado.getContenido());
             r.setFecha(reporteActualizado.getFecha());
+            r.setRutUsuario(reporteActualizado.getRutUsuario());
             return reporteRepository.save(r);
         }).orElseThrow(() -> new RuntimeException("Reporte no encontrado con ID: " + id));
     }
@@ -48,5 +58,9 @@ public class ReporteService {
 
     public boolean existePorId(Long id) {
         return reporteRepository.existsById(id);
+    }
+
+    private boolean esTipoValido(String tipoUsuario) {
+        return "profesor".equalsIgnoreCase(tipoUsuario) || "administrador".equalsIgnoreCase(tipoUsuario);
     }
 }

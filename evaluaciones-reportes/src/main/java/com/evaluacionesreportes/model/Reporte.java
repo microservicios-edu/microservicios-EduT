@@ -17,6 +17,8 @@ public class Reporte {
     private String titulo;
 
     private String contenido;
-    
+
     private LocalDate fecha;
+
+    private String rutUsuario;  // NUEVO campo para asociar usuario (o puede ser idUsuario si prefieres)
 }
