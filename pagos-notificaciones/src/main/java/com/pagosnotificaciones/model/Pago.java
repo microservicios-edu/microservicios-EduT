@@ -20,7 +20,7 @@ public class Pago {
 
     private String usuario;
 
-    private Double monto;
+    private int monto; //se cambia de double a int para evitar problemas de precisión
 
     private LocalDate fechaPago;
 }

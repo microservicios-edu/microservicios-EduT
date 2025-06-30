@@ -40,6 +40,7 @@ async function inscribirUsuario(cursoId) {
       monto: 50000,
       fechaPago: new Date().toISOString().split("T")[0]
     };
+    console.log(pago);
 
     const pagoResponse = await fetch('http://localhost:8083/api/v1/pagos', {
       method: 'POST',
@@ -48,45 +49,16 @@ async function inscribirUsuario(cursoId) {
     });
 
     if (pagoResponse.ok) {
-      alert("¡Inscripción y pago realizados exitosamente!");
+      alert(`✅ Se ha registrado un pago de $${pago.monto} por parte del usuario con el Rut ${matricula.rut} para el curso ${cursoId}.`); //Se simplifica la noificación
     } else {
       alert("Inscripción realizada, pero hubo un error al registrar el pago.");
     }
 
     // Esperamos respuesta como string (según tu backend actual)
     const pagoMensaje = await pagoResponse.text();
-    alert(pagoMensaje);
-
-    // OPCIONAL: buscar el último pago por usuario para obtener el ID
-    const pagosUsuarioResp = await fetch(`http://localhost:8083/api/v1/pagos`);
-    const listaPagos = await pagosUsuarioResp.json();
-
-    const ultimoPago = listaPagos
-      .filter(p => p.usuario === datosUsuario.rut && p.fechaPago === fechaPago && p.monto === monto)
-      .sort((a, b) => b.id - a.id)[0]; // Último por ID
-
-    if (!ultimoPago || !ultimoPago.id) {
-      alert("Pago realizado, pero no se pudo obtener su ID para generar notificación.");
+    if (!pagoMensaje) {
+      alert("Pago realizado, pero no se recibió mensaje del servidor.");
       return;
-    }
-
-    // Crear notificación asociada
-    const notificacion = {
-      mensaje: `Pago exitoso del curso ${cursoId} por parte de ${datosUsuario.nombre}`,
-      fechaEnvio: fechaPago,
-      pagoId: ultimoPago.id
-    };
-
-    const notificacionResponse = await fetch('http://localhost:8083/api/v1/notificaciones', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(notificacion)
-    });
-
-    if (notificacionResponse.ok) {
-      alert("¡Pago y notificación registrados exitosamente!");
-    } else {
-      alert("Pago realizado, pero error al registrar notificación.");
     }
 
   } catch (error) {

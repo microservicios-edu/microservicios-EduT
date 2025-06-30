@@ -1,4 +1,4 @@
-package com.example.edutech.config;
+package com.pagosnotificaciones.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
