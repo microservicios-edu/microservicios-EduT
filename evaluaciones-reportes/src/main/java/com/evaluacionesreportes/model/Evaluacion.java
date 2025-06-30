@@ -5,8 +5,8 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Data
 @Table(name = "evaluaciones")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Evaluacion {
@@ -22,4 +22,6 @@ public class Evaluacion {
     private Double puntaje;
 
     private LocalDate fecha;
+
+    private String rutUsuario;  // NUEVO campo para asociar usuario
 }
