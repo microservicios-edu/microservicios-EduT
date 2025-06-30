@@ -29,6 +29,7 @@ public class ReporteService {
     }
 
     public Reporte crear(Reporte reporte) {
+        system.out.println(reporte);
         UsuarioDTO usuario = usuarioClient.obtenerUsuarioPorRut(reporte.getRutUsuario()).block();
 
         if (usuario == null) {

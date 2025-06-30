@@ -1,17 +1,17 @@
 package com.evaluacionesreportes.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.evaluacionesreportes.client.UsuarioClient;
 import com.evaluacionesreportes.dto.UsuarioDTO;
 import com.evaluacionesreportes.model.Evaluacion;
 import com.evaluacionesreportes.model.Reporte;
 import com.evaluacionesreportes.repository.EvaluacionRepository;
 import com.evaluacionesreportes.repository.ReporteRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.time.LocalDate;
 
 @Service
 public class EvaluacionService {
@@ -36,6 +36,7 @@ public class EvaluacionService {
 
     public Evaluacion crear(Evaluacion evaluacion) {
         // Obtener usuario por rut
+        System.out.println(evaluacion);
         UsuarioDTO usuario = usuarioClient.obtenerUsuarioPorRut(evaluacion.getRutUsuario()).block();
 
         if (usuario == null) {
@@ -57,6 +58,7 @@ public class EvaluacionService {
                 " por el usuario '" + usuario.getNombre() +
                 "' (RUT: " + usuario.getRut() + ") el " + nueva.getFecha() + ".");
         autoReporte.setFecha(LocalDate.now());
+        autoReporte.setRutUsuario(usuario.getRut()); //se agregó código para setear el rut hacia reportes
 
         // Guardar el reporte
         reporteRepository.save(autoReporte);
@@ -84,6 +86,6 @@ public class EvaluacionService {
     }
 
     private boolean esTipoValido(String tipoUsuario) {
-        return "profesor".equalsIgnoreCase(tipoUsuario) || "administrador".equalsIgnoreCase(tipoUsuario);
+        return "docente".equalsIgnoreCase(tipoUsuario) || "administrador".equalsIgnoreCase(tipoUsuario);
     }
 }
