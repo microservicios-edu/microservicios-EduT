@@ -1,6 +1,6 @@
-com/example/edutech/config/WebConfig$1.class
-com/example/edutech/repository/UsuarioRepositorio.class
-com/example/edutech/model/Usuario.class
-com/example/edutech/controller/UsuarioController.class
-com/example/edutech/services/UsuarioService.class
-com/example/edutech/config/WebConfig.class
+com\example\edutech\controller\UsuarioController.class
+com\example\edutech\model\Usuario.class
+com\example\edutech\repository\UsuarioRepositorio.class
+com\example\edutech\config\WebConfig.class
+com\example\edutech\config\WebConfig$1.class
+com\example\edutech\services\UsuarioService.class

@@ -2,6 +2,8 @@ package com.evaluacionesreportes.controller;
 
 import com.evaluacionesreportes.model.Evaluacion;
 import com.evaluacionesreportes.service.EvaluacionService;
+import com.evaluacionesreportes.client.UsuarioClient;
+import com.evaluacionesreportes.dto.UsuarioDTO;
 
 import java.util.List;
 import java.util.Collections;
@@ -11,12 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import reactor.core.publisher.Mono;
+
 @RestController
 @RequestMapping("/api/v1/evaluaciones")
 public class EvaluacionController {
 
     @Autowired
     private EvaluacionService evaluacionService;
+
+    @Autowired
+    private UsuarioClient usuarioClient; // Inyectamos el cliente para gestionar usuarios
 
     @GetMapping
     public ResponseEntity<?> obtenerTodas() {
@@ -39,23 +46,36 @@ public class EvaluacionController {
         }
     }
 
+    // NUEVO: Endpoint para obtener info del usuario por RUT, consumiendo
+    // gestion-usuarios
+    @GetMapping("/usuario-info")
+    public Mono<ResponseEntity<UsuarioDTO>> obtenerInfoUsuario(@RequestParam String rut) {
+        return usuarioClient.obtenerUsuarioPorRut(rut)
+                .map(usuario -> ResponseEntity.ok().body(usuario))
+                .defaultIfEmpty(
+                        ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+    }
+
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody(required = false) Evaluacion evaluacion) {
         if (evaluacion == null) {
-            return new ResponseEntity<>(Collections.singletonMap("mensaje", "No hay datos para agregar."), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Collections.singletonMap("mensaje", "No hay datos para agregar."),
+                    HttpStatus.BAD_REQUEST);
         }
         try {
             Evaluacion nuevo = evaluacionService.crear(evaluacion);
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("mensaje", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Collections.singletonMap("mensaje", e.getMessage()));
         }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody(required = false) Evaluacion evaluacion) {
         if (evaluacion == null) {
-            return new ResponseEntity<>(Collections.singletonMap("mensaje", "No hay datos para actualizar."), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Collections.singletonMap("mensaje", "No hay datos para actualizar."),
+                    HttpStatus.BAD_REQUEST);
         }
         try {
             Evaluacion actualizada = evaluacionService.actualizar(id, evaluacion);
@@ -68,13 +88,18 @@ public class EvaluacionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id) {
         if (!evaluacionService.existePorId(id)) {
-            return new ResponseEntity<>(Collections.singletonMap("mensaje", "No se encontró ninguna evaluación con ID: " + id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(
+                    Collections.singletonMap("mensaje", "No se encontró ninguna evaluación con ID: " + id),
+                    HttpStatus.NOT_FOUND);
         }
         try {
             evaluacionService.eliminar(id);
-            return new ResponseEntity<>(Collections.singletonMap("mensaje", "Evaluación eliminada exitosamente"), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("mensaje", "Evaluación eliminada exitosamente"),
+                    HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(Collections.singletonMap("mensaje", "No se pudo eliminar la evaluación con ID: " + id), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(
+                    Collections.singletonMap("mensaje", "No se pudo eliminar la evaluación con ID: " + id),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
