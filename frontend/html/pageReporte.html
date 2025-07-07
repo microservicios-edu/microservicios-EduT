@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion Soporte</title>
-    <link rel="stylesheet" href="../css/homePageSoporte.css">
+    <title>Gestion de Cursos</title>
+    <link rel="stylesheet" href="../css/pageReporte.css">
 </head>
 <body>
-    <!-- Página de sporte -->
     <div class="container">
-        <h1>Reporte de ticket</h1>
-        <nav class="action-nav"> <a href="../index.html" class="nav-button">Cerrar sesión</a>
+        <h1>Reporte de Evaluaciones</h1>
+        <nav class="action-nav"> <a href="./homePageProfesor.html" class="nav-button">Volver al Inicio</a>
         </nav>
         <!-- <form id="courseForm">
             <input type="text" id="courseName" placeholder="Nombre" required>
@@ -19,21 +18,20 @@
             <input type="date" id="availableSlots" placeholder="Fecha" required>
             <button type="submit">Agregar Evaluaciones</button>
         </form> -->
-        <input type="text" id="searchInput" placeholder="Buscar por ID">
+        <input type="text" id="searchInput" placeholder="Buscar por evaluación">
         <table id="courseTable">
             <thead>
                 <tr>
-                    <th>iD</th>
+                    <th>ID</th>
                     <th>Rut</th>
-                    <th>Nombre de usuario</th>
-                    <th>Detalle</th>
-                    <th>Estado</th>
+                    <th>Contenido</th>
+                    <th>Contenido</th>
                     <th>Opciones</th>
                 </tr>
             </thead>
             <tbody id="evaluacionList"></tbody>
         </table>
     </div>
-    <script src="../javascript/soporte.js"></script>
+    <script src="../javascript/pageReporte.js"></script>
 </body>
 </html>

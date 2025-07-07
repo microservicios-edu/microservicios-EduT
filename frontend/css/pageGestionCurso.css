@@ -43,7 +43,7 @@ body {
     color: var(--color-text-light);
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alinea al inicio para dejar espacio en la parte superior */
+    align-items: center; /* Alinea en el centro para dejar espacio en la parte superior */
     min-height: 100vh;
     overflow-x: hidden; /* Evita desbordamiento horizontal */
     position: relative;

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8085/api/v1/soporte';
+const API_URL = 'http://localhost:8080/api/v1/reportes';
 
 // Renderizar cursos desde la API
 async function renderEvaluaciones() {
@@ -31,12 +31,11 @@ async function renderEvaluaciones() {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${evaluacion.id}</td>
-                <td>${evaluacion.rut}</td>
-                <td>${evaluacion.nombreUsuario}</td>
-                <td>${evaluacion.mensaje}</td>
-                <td>${evaluacion.estado}</td>
+                <td>${evaluacion.rutUsuario}</td>
+                <td>${evaluacion.contenido}</td>
+                <td>${evaluacion.fecha}</td>
                 <td>
-                    <button class="delete-button" onclick="deleteevaluacion(${evaluacion.id})">Cerrar y finalizar el caso</button>
+                    <button class="delete-button" onclick="deleteevaluacion(${evaluacion.id})">Cerrar y finalizar ticket</button>
                 </td>
             `;
             tbody.appendChild(row);
@@ -70,7 +69,7 @@ async function deleteevaluacion(id) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
 
-        alert('Soporte gestionado y ticket eliminado exitosamente.');
+        alert('Evaluación eliminada exitosamente.');
         renderEvaluaciones();
     } catch (error) {
         console.error('Error al eliminar la evaluación:', error);
@@ -82,6 +81,7 @@ async function deleteevaluacion(id) {
 
 // Inicializar
 document.addEventListener('DOMContentLoaded', () => {
+    // document.getElementById('courseForm').onsubmit = addCourse;
     document.getElementById('searchInput').addEventListener('input', searchCourses);
     renderEvaluaciones();
 });

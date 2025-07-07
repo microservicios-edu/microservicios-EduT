@@ -15,7 +15,7 @@ async function renderCourses() {
         console.log('Cursos obtenidos:', courses); // Agrega este log para depurar
 
         const tbody = document.getElementById('courseList');
-        tbody.innerHTML = ''; // Limpiar tabla antes de cargar nuevos datos
+        tbody.innerHTML = ''; // Limpiar tabla antes de cargar nuevos datos 
 
         courses.forEach(course => {
             const row = document.createElement('tr');

@@ -1,12 +1,3 @@
-
-
-async function enviarEvaluacion() {
-    
-}
-
-
-
-
 async function botonSoporte() {
     const usuarioStr = localStorage.getItem("usuario");
     console.log(usuarioStr);

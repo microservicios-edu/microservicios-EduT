@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Cursos</title>
+    <link rel="stylesheet" href="../css/pageEvaluaciones.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Evaluaciones</h1>
+        <nav class="action-nav"> <a href="./homePageProfesor.html" class="nav-button">Volver al Inicio</a>
+        </nav>
+        <form id="evaluacionForm">
+            <input type="text" id="courseName" placeholder="Nombre de la evaluación" required>
+            <input type="text" id="courseDescription" placeholder="Descripción" required>
+            <input type="number" id="puntaje" placeholder="Nota del 1 al 7" min="0" max="7" required>
+            <input type="date" id="fecha" placeholder="Fecha" required>
+            <button type="submit">Agregar Evaluaciones</button>
+        </form>
+    </div>
+    <script src="../javascript/pageEvaluaciones.js"></script>
+</body>
+</html>
