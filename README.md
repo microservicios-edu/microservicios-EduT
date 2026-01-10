@@ -7,6 +7,7 @@ Este repositorio contiene los microservicios del sistema educativo desarrollado 
 <br>
 
 <img width="502" height="486" alt="Image" src="https://github.com/user-attachments/assets/8498d204-80dd-47da-b837-64f1bbcbad95" />
+<br>
 ## Microservicios incluidos
 
 - Gestión de Usuarios
