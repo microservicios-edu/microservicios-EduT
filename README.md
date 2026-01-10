@@ -2,6 +2,11 @@
 
 Este repositorio contiene los microservicios del sistema educativo desarrollado en Java con Spring Boot.
 
+<img width="727" height="252" alt="Image" src="https://github.com/user-attachments/assets/98fbab4d-a744-44eb-b1df-286632b2eaa2" />
+
+<br>
+
+<img width="502" height="486" alt="Image" src="https://github.com/user-attachments/assets/8498d204-80dd-47da-b837-64f1bbcbad95" />
 ## Microservicios incluidos
 
 - Gestión de Usuarios
